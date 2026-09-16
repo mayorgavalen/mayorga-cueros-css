@@ -45,7 +45,15 @@
   function alto(){
     var c=document.querySelector("header");
     var hc=c?c.offsetHeight:116;
-    sec.style.paddingTop=(hc+34)+"px";
+    var angosto=window.matchMedia("(max-width:767px)").matches;
+    sec.style.paddingTop=(hc+(angosto?12:34))+"px";
+    if(angosto){
+      slides.forEach(function(s){
+        var im=s.querySelector("img");
+        if(im){ im.style.maxHeight=""; im.style.height=""; im.style.width=""; }
+      });
+      return;
+    }
     var libre=window.innerHeight-hc-34-90;
     if(libre<380) libre=380;
     if(libre>900) libre=900;
