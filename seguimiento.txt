@@ -1,0 +1,143 @@
+<script>(function(){ var DATOS={ "materas-y-yerberos":["Materas","para llevar el equipo completo: termo, mate y yerba"], "cintos":["Cintos","de lonja entera, cortados de una sola pieza"], "billeteras":["Billeteras","chicas por fuera, ordenadas por dentro"], "marroquineria":["Marroquinería","bolsos y maletines para cargar el día"], "llaveros":["Llaveros","el detalle que se usa todos los días"] }; function pie(){ var f=document.querySelector("footer"); if(!f||f.dataset.mg) return; f.dataset.mg="1"; var lg=f.querySelector(".js-footer-legal"); if(lg){ lg.style.backgroundColor="transparent"; lg.style.borderTop="1px solid #332820"; } var dv=f.querySelector(".divider"); if(dv) dv.style.display="none"; var filas=f.querySelectorAll(".row.element-footer"); if(filas.length>1){ filas[1].style.marginTop="26px"; [].forEach.call(filas[1].querySelectorAll("img"),function(im){ im.style.filter="grayscale(1)"; im.style.opacity=".45"; im.style.maxHeight="19px"; im.style.width="auto"; }); } var col=filas[0]?filas[0].children[0]:null; var src=document.querySelector(".head-main .logo-img-container img")||document.querySelector(".head-main img"); if(col&&src&&!col.querySelector(".mg-logo")){ var im=document.createElement("img"); im.className="mg-logo"; im.src=src.currentSrc||src.src; im.alt="Mayorga Cueros"; im.style.cssText="display:block;height:62px;width:auto;margin:0 0 18px"; col.insertBefore(im,col.firstChild); } } function coleccion(){ var s=document.querySelector('[data-store="home-banner-categories"]'); if(!s||s.dataset.mg) return; var row=s.querySelector(".row"); if(!row||row.children.length<3) return; s.dataset.mg="1"; var CDN="https://d1a9qnv764bsoo.cloudfront.net/stores/005/088/050/rte/"; if(!row.querySelector('a[href*="/marroquineria/"]')){ var n=row.children[2].cloneNode(true); n.className=n.className.replace(/js-category-banner-container-\d+/g,""); var a=n.querySelector("a"); if(a) a.setAttribute("href","/marroquineria/"); var t=n.querySelector("h3")||n.querySelector(".h2"); if(t) t.textContent="Marroquinería"; var p=n.querySelector(".textbanner-paragraph"); if(p) p.textContent="Maletines y bolsos"; [].forEach.call(n.querySelectorAll("img"),function(im){ im.removeAttribute("srcset"); im.removeAttribute("data-srcset"); im.removeAttribute("sizes"); im.src=CDN+"bolso-nubuck.jpg"; im.setAttribute("data-src",CDN+"bolso-nubuck.jpg"); im.classList.add("lazyloaded"); }); row.appendChild(n); } ["/materas-y-yerberos/","/cintos/","/billeteras/","/marroquineria/"].forEach(function(u){ var el=[].filter.call(row.children,function(x){var aa=x.querySelector("a");return aa&&(aa.getAttribute("href")||"").indexOf(u)>-1;})[0]; if(el) row.appendChild(el); }); [].forEach.call(row.children,function(x,i){ var tb=x.querySelector(".textbanner"); if(!tb||tb.querySelector(".mg-idx")) return; var sp=document.createElement("span"); sp.className="mg-idx"; sp.textContent="0"+(i+1); sp.style.cssText="position:absolute;top:22px;left:26px;font-family:'Instrument Serif',Georgia,serif;font-style:italic;color:#C89B62;font-size:19px;z-index:3"; tb.appendChild(sp); }); } function cabecera(){ var h=document.querySelector(".head-main"); if(!h||h.dataset.mgh) return; h.dataset.mgh="1"; var st=document.createElement("style"); st.textContent=".head-main .logo-img-container img{max-height:60px!important;height:60px!important;width:auto!important;margin:0!important}" +".head-main .logo-img-container a::after{font-size:19px!important;letter-spacing:.15em!important}" +".head-main .logo-img-container::after{font-size:10.5px!important;letter-spacing:.26em!important;margin-top:6px!important}" +".head-main .js-nav-desktop-list > li{margin-left:8px!important;margin-right:8px!important;padding-left:0!important;padding-right:0!important}" +".head-main .search-container.mg-esc::before{opacity:0!important}" +".head-main .js-search-suggest{background-color:#191310!important;border:1px solid #332820!important}" +".head-main .js-search-suggest *{background-color:transparent!important;color:#EAE0CE!important}" +".head-main .js-search-suggest strong,.head-main .js-search-suggest b{color:#C89B62!important}"; document.head.appendChild(st); var inp=h.querySelector(".js-search-input"), sc=h.querySelector(".search-container"); if(inp&&sc){ var ver=function(){ sc.classList.toggle("mg-esc", document.activeElement===inp || !!inp.value); }; inp.addEventListener("focus",ver); inp.addEventListener("blur",ver); inp.addEventListener("input",ver); inp.addEventListener("keyup",ver); ver(); } function tam(v){ [].forEach.call(h.querySelectorAll("a.nav-list-link"),function(a){ a.style.setProperty("font-size",v+"px","important"); a.style.setProperty("letter-spacing",".15em","important"); a.style.setProperty("color","#B8AA90","important"); a.style.setProperty("font-weight","500","important"); }); } function acomodar(){ var col=h.querySelector(".col-md-3"), ul=h.querySelector(".js-nav-desktop-list"); if(!col||!ul) { tam(12); return; } var colNav=ul.parentElement.parentElement, bus=h.querySelector(".js-search-container"); col.style.removeProperty("margin-left"); colNav.style.removeProperty("width"); colNav.style.removeProperty("margin-left"); colNav.style.removeProperty("flex"); if(window.innerWidth<1200){ tam(12); return; } var lateral=Math.max(24,Math.round((window.innerWidth-1360)/2+48)); var cur=col.getBoundingClientRect().left; if(lateral>cur) col.style.setProperty("margin-left",Math.round(lateral-cur)+"px","important"); var fin=col.getBoundingClientRect().left+col.scrollWidth; var busIni=bus?bus.getBoundingClientRect().left:window.innerWidth-lateral; var aires=[80,60,44,30], ok=false, ini=0, disp=0; for(var i=0;i<aires.length&&!ok;i++){ ini=fin+aires[i]; disp=Math.round(busIni-24-ini); for(var v=13;v>=9.5;v-=0.5){ tam(v); if(ul.scrollWidth<=disp){ ok=true; break; } } } if(!ok){ tam(11); col.style.removeProperty("margin-left"); return; } colNav.style.setProperty("flex","0 0 auto","important"); colNav.style.setProperty("width",disp+"px","important"); var m=Math.round(ini-colNav.getBoundingClientRect().left); colNav.style.setProperty("margin-left",m+"px","important"); var d=Math.round(ini-ul.getBoundingClientRect().left); if(Math.abs(d)>2) colNav.style.setProperty("margin-left",(m+d)+"px","important"); } acomodar(); window.addEventListener("resize",acomodar,{passive:true}); setTimeout(acomodar,1200); if(getComputedStyle(h).position!=="fixed") return; function pintar(){ var on=window.scrollY>60; h.style.setProperty("background-color","transparent","important"); h.style.setProperty("background-image", on?"linear-gradient(90deg,rgba(15,11,8,.94),rgba(15,11,8,.92))":"linear-gradient(180deg,rgba(15,11,8,.62),rgba(15,11,8,.10) 70%,rgba(15,11,8,0))","important"); h.style.setProperty("border-bottom", on?"1px solid #332820":"1px solid transparent","important"); h.style.setProperty("backdrop-filter", on?"blur(10px)":"none","important"); h.style.setProperty("transition","background-image .4s,border-color .4s","important"); } pintar(); window.addEventListener("scroll",pintar,{passive:true}); } function portada(){ var t=document.querySelector('[data-store="home-banner-promotional"] .textbanner-text'); if(!t||t.dataset.mgp) return; t.dataset.mgp="1"; var b=t.querySelector(".btn"); if(!b) return; var st=document.createElement("style"); st.textContent='[data-store="home-banner-promotional"] .textbanner-text::after{content:none!important}' +'.mg-pie{order:3;display:flex;flex-direction:column;align-items:flex-start;gap:22px;width:100%;border-top:1px solid rgba(234,224,206,.22);margin-top:46px;padding-top:22px}' +'.mg-pie p{max-width:48ch;color:#B8AA90;font-size:15px;line-height:1.7;margin:0}' +'.mg-pie .btn{margin:0!important;flex:0 0 auto}' +'@media (min-width:992px){.mg-pie{flex-direction:row;justify-content:space-between;align-items:flex-end;gap:60px}}'; document.head.appendChild(st); var d=document.createElement("div"); d.className="mg-pie"; var p=document.createElement("p"); p.textContent="Marroquiner\u00eda y talabarter\u00eda en cuero argentino. Cortada, cosida y terminada en nuestra f\u00e1brica de Buenos Aires desde 1930."; d.appendChild(p); d.appendChild(b); t.appendChild(d); } function botones(){ var ORO="#C89B62"; function imp(e,o){ e.style.setProperty("transition","none","important"); for(var k in o)e.style.setProperty(k,o[k],"important"); setTimeout(function(){e.style.removeProperty("transition");},80); } [].forEach.call(document.querySelectorAll(".btn"),function(b){ if(b.children.length) return; var t=b.textContent.trim().toLowerCase(); if(t==="tienda"){ b.textContent="Ir a la tienda"; t="ir a la tienda"; } if(t==="leer la historia completa"){ imp(b,{"display":"inline-block","border":"1px solid "+ORO,"padding":"16px 30px","color":ORO,"font-size":"11px","letter-spacing":".26em","font-weight":"600","background-color":"transparent","width":"auto"}); } else if(t==="entrar a la tienda"){ imp(b,{"font-size":"11px","letter-spacing":".26em","font-weight":"600","padding":"18px 34px"}); } }); } function carrusel(){
+  var sec=document.querySelector('[data-store="home-banner-promotional"]');
+  if(!sec||sec.dataset.mgCar) return;
+  var fila=sec.querySelector(".row");
+  var slides=[].slice.call(sec.querySelectorAll(".js-promotional-banner-container")).filter(function(s){
+    return s.getAttribute("data-visible")!=="false";
+  });
+  if(!fila||slides.length<2) return;
+  sec.dataset.mgCar="1";
+
+  var COPIAS=[
+    {ceja:"Marroquiner\u00eda",
+     lineas:["Cuero argentino nubuck. Herrajes de alpaca.","$269.000 \u00b7 $228.650 con transferencia"]},
+    {ceja:"F\u00e1brica propia \u00b7 Buenos Aires",
+     lineas:["Tres generaciones en el mismo taller de Buenos Aires.","","Env\u00edo gratis desde $150.000","3 cuotas sin inter\u00e9s","6 meses de garant\u00eda"]}
+  ];
+  slides.forEach(function(s,k){
+    var img=s.querySelector("img");
+    if(img){
+      if(img.getAttribute("data-src")) img.setAttribute("src",img.getAttribute("data-src"));
+      if(img.getAttribute("data-srcset")) img.setAttribute("srcset",img.getAttribute("data-srcset"));
+      img.classList.add("lazyloaded");
+      img.style.aspectRatio="2 / 3";
+      img.style.height="auto";
+    }
+    var caja=s.querySelector(".textbanner-text");
+    var c=COPIAS[k];
+    if(!caja||!c||caja.querySelector(".mg-ceja")) return;
+    var h=caja.querySelector("h3");
+    var ce=document.createElement("p");
+    ce.className="mg-ceja";
+    ce.textContent=c.ceja;
+    caja.insertBefore(ce,caja.firstChild);
+    var de=document.createElement("div");
+    de.className="mg-desc";
+    c.lineas.forEach(function(t){
+      var pp=document.createElement("p");
+      if(!t) pp.className="mg-hueco";
+      pp.textContent=t;
+      de.appendChild(pp);
+    });
+    if(h&&h.nextSibling) caja.insertBefore(de,h.nextSibling); else caja.appendChild(de);
+  });
+
+  function alto(){
+    var c=document.querySelector("header");
+    var hc=c?c.offsetHeight:116;
+    sec.style.paddingTop=(hc+34)+"px";
+    var libre=window.innerHeight-hc-34-90;
+    if(libre<380) libre=380;
+    if(libre>900) libre=900;
+    slides.forEach(function(s){
+      var im=s.querySelector("img");
+      if(im) im.style.maxHeight=Math.round(libre)+"px";
+    });
+  }
+  alto(); window.addEventListener("resize",alto);
+
+  var cont=document.createElement("div");
+  cont.className="mg-puntos";
+  slides.forEach(function(s,k){
+    var b=document.createElement("button");
+    b.type="button"; b.className="mg-punto";
+    b.setAttribute("aria-label","Ver portada "+(k+1));
+    b.setAttribute("aria-current", k===0?"true":"false");
+    cont.appendChild(b);
+  });
+  fila.appendChild(cont);
+  var puntos=[].slice.call(cont.children);
+
+  var i=0, reloj=null, ESPERA=7000;
+  var quieto=window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function ir(n,dir){
+    var previo=i;
+    i=(n+slides.length)%slides.length;
+    if(previo===i) return;
+    if(dir===undefined) dir=(n>previo)?1:-1;
+    slides.forEach(function(s,k){
+      s.classList.remove("mg-on","mg-izq");
+      if(k===i) s.classList.add("mg-on");
+      else if(k===previo && dir>0) s.classList.add("mg-izq");
+      else if(k!==previo && dir<0) s.classList.add("mg-izq");
+      s.setAttribute("aria-hidden", k===i?"false":"true");
+    });
+    puntos.forEach(function(p,k){ p.setAttribute("aria-current", k===i?"true":"false"); });
+  }
+  function arrancar(){ parar(); if(quieto.matches) return; reloj=setInterval(function(){ ir(i+1,1); },ESPERA); }
+  function parar(){ if(reloj){ clearInterval(reloj); reloj=null; } }
+
+  puntos.forEach(function(p,k){
+    p.addEventListener("click",function(e){ e.preventDefault(); ir(k, k>i?1:-1); arrancar(); });
+  });
+  sec.addEventListener("mouseenter",parar);
+  sec.addEventListener("mouseleave",arrancar);
+  sec.addEventListener("focusin",parar);
+  sec.addEventListener("focusout",arrancar);
+
+  var x0=null;
+  sec.addEventListener("touchstart",function(e){ x0=e.touches[0].clientX; parar(); },{passive:true});
+  sec.addEventListener("touchend",function(e){
+    if(x0===null) return;
+    var d=e.changedTouches[0].clientX-x0;
+    if(Math.abs(d)>45){ var dd=d<0?1:-1; ir(i+dd,dd); }
+    x0=null; arrancar();
+  },{passive:true});
+
+  var mx=null, movido=false;
+  sec.addEventListener("mousedown",function(e){ mx=e.clientX; movido=false; parar(); });
+  window.addEventListener("mousemove",function(e){ if(mx!==null && Math.abs(e.clientX-mx)>10) movido=true; });
+  window.addEventListener("mouseup",function(e){
+    if(mx===null) return;
+    var d=e.clientX-mx;
+    if(Math.abs(d)>60){ var dd=d<0?1:-1; ir(i+dd,dd); }
+    mx=null; setTimeout(function(){movido=false;},0); arrancar();
+  });
+  sec.addEventListener("click",function(e){ if(movido) e.preventDefault(); },true);
+
+  document.addEventListener("visibilitychange",function(){ document.hidden?parar():arrancar(); });
+
+  slides[0].classList.add("mg-on");
+  slides.forEach(function(s,k){ s.setAttribute("aria-hidden", k===0?"false":"true"); });
+  arrancar();
+}
+function menu(){
+  var ul=document.querySelector(".head-main .nav-desktop-list");
+  if(!ul||ul.dataset.mgMenu) return;
+  ul.dataset.mgMenu="1";
+  var VER={"quienes-somos":2,"catalogo-mayorista":3};
+  [].slice.call(ul.children).forEach(function(li){
+    if(li.className.indexOf("nav-dropdown")>=0){ li.style.order=1; return; }
+    var a=li.querySelector("a"); if(!a) return;
+    var h=a.getAttribute("href")||"";
+    for(var k in VER){
+      if(h.indexOf(k)>=0){ li.className+=" mg-ver"; li.style.order=VER[k]; }
+    }
+  });
+  [].slice.call(ul.querySelectorAll(".desktop-list-subitems > li")).forEach(function(li){
+    var a=li.querySelector("a");
+    if(a && (a.getAttribute("href")||"").indexOf("/llaveros")>=0) li.className+=" mg-no";
+  });
+}
+function init(){ var b=document.body; if(!b) return; var m=location.pathname.match(/^\/([a-z0-9-]+)\//); var slug=m?m[1]:""; if(slug) b.classList.add("cat-"+slug); cabecera(); pie(); coleccion(); botones(); carrusel(); menu(); if(b.className.indexOf("template-category")<0) return; var cc=document.querySelector(".js-category-controls"); if(!cc||cc.dataset.mg) return; cc.dataset.mg="1"; var d=DATOS[slug]; cc.style.minHeight="62vh"; cc.style.paddingTop="150px"; cc.style.paddingBottom="58px"; cc.style.marginTop="-1px"; var act=cc.querySelector(".breadcrumbs .crumb.active"); var ini=cc.querySelector(".breadcrumbs .crumb:not(.active)"); if(act&&d){ if(ini){ var sep=document.createElement("span"); sep.textContent=" — "; sep.style.cssText="color:#B8AA90;margin:0 6px"; var full=document.createElement("span"); full.textContent=act.textContent.trim(); full.style.cssText="color:#C89B62"; ini.parentNode.insertBefore(sep,ini.nextSibling); sep.parentNode.insertBefore(full,sep.nextSibling); } act.textContent=d[0]; var sub=document.createElement("span"); sub.textContent=d[1]; sub.style.cssText="flex:0 0 100%;font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:23px;color:#C89B62;margin-top:12px;text-transform:none;letter-spacing:0"; act.parentNode.appendChild(sub); } var barra=document.createElement("div"); barra.style.cssText="border-top:1px solid #332820;border-bottom:1px solid #332820;background:#191310;position:relative;z-index:5;margin-bottom:40px"; var wrap=document.createElement("div"); wrap.style.cssText="max-width:1300px;margin:0 auto;padding:16px 15px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap"; var g=document.createElement("div"); g.style.cssText="display:flex;gap:26px;flex-wrap:wrap;align-items:center"; var vistos={}; [].forEach.call(document.querySelectorAll(".head-main a.nav-list-link"),function(a){ var hh=a.getAttribute("href")||""; var mm=hh.match(/\/([a-z0-9-]+)\/$/); if(!mm) return; var s=mm[1]; if(vistos[s]||!DATOS[s]) return; vistos[s]=1; var el=document.createElement("a"); el.href=hh; el.textContent=DATOS[s][0]; var on=(s===slug); el.style.cssText="font-size:11px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding-bottom:4px;border-bottom:1px solid "+(on?"#C89B62":"transparent")+";color:"+(on?"#C89B62":"#B8AA90"); g.appendChild(el); }); wrap.appendChild(g); barra.appendChild(wrap); cc.parentNode.insertBefore(barra,cc.nextSibling); var n=0; function mover(){ var sel=cc.querySelector("select"); if(sel){ var col=sel.closest("[class*='col-']")||sel.parentNode; col.style.padding="0"; col.style.maxWidth="none"; col.style.flex="0 0 auto"; col.style.width="auto"; wrap.appendChild(col); return; } if(++n<12) setTimeout(mover,500); } mover(); } if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init); else init(); })();</script>
