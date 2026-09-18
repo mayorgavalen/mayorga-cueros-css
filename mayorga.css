@@ -69,7 +69,7 @@ table,th,td{border-color:#332820!important}
 [data-store="home-banner-categories"] .textbanner:hover .textbanner-image img{transform:scale(1.06);filter:brightness(.92)}
 [data-store="home-banner-categories"] .placeholder-fade{display:none!important}
 [data-store="home-banner-categories"] .textbanner::before{position:absolute;top:22px;left:26px;font-family:"Instrument Serif",Georgia,serif;font-style:italic;color:#c89b62;font-size:19px;z-index:3}
-[data-store="home-products-featured"]{padding:0 0 110px;overflow:hidden}
+[data-store="home-products-featured"]{padding:0 0 34px;overflow:hidden}
 [data-store="home-products-featured"] .container{max-width:1360px!important;padding:0 48px!important}
 [data-store="home-products-featured"] .col-12.text-center{text-align:left!important;padding-left:0;padding-right:0}
 [data-store="home-products-featured"] .js-products-featured-title{text-align:left!important;font-weight:700;font-size:52px;line-height:1;text-transform:uppercase;letter-spacing:.02em;color:#eae0ce!important;margin:0 0 46px}
@@ -104,9 +104,9 @@ footer .footer-menu li{margin-bottom:9px}
 [data-store="home-products-featured"] .payment-discount-price-product-container span{font-size:13px}
 [data-store="home-image-text-module"] .textbanner-title::before{content:none!important;display:none!important}
 @keyframes mayorgaCinta{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}
-[data-store="home-banner-categories"]{padding:55px 0!important}
+[data-store="home-banner-categories"]{padding:0 0 55px!important}
 [data-store="home-products-featured"]::before{content:"Cuero argentino · Fabricación propia · Tres generaciones · Buenos Aires · Hecho a mano · Cuero argentino · Fabricación propia · Tres generaciones · Buenos Aires · Hecho a mano · Cuero argentino · Fabricación propia · Tres generaciones · Buenos Aires · Hecho a mano · Cuero argentino · Fabricación propia · Tres generaciones · Buenos Aires · Hecho a mano · ";display:block!important;max-width:none!important;margin:0 0 70px!important;padding:17px 0!important;font-weight:400;font-size:12px;line-height:1;text-transform:uppercase;letter-spacing:.34em;color:#b8aa90;width:max-content;white-space:nowrap;background:#191310;border-top:1px solid #332820;border-bottom:1px solid #332820;animation:mayorgaCinta 24s linear infinite}
-[data-store="home-banner-categories"] .row::before{content:"cuatro familias, un mismo cuero";grid-column:1/-1;display:block;font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:20px;color:#c89b62;margin:10px 0 36px;text-transform:none;letter-spacing:0}
+
 @media(max-width:767px){[data-store="home-products-featured"]::before{font-size:10px;letter-spacing:.24em;padding:13px 0!important;margin-bottom:46px!important}[data-store="home-banner-categories"] .container::before{font-size:26px}[data-store="home-banner-categories"] .row::before{font-size:17px;margin:8px 0 24px}}
 [data-store="home-newsletter"]::before{content:"Llevate un pedazo de esta historia hecho para durar décadas.";display:flex;align-items:center;justify-content:center;text-align:center;min-height:62vh;padding:76px 9vw;margin:0;font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;font-size:36px;line-height:1.5;letter-spacing:0;text-transform:none;color:#eae0ce;background-image:linear-gradient(rgba(15,11,8,.7),rgba(15,11,8,.7)),url("https://d1a9qnv764bsoo.cloudfront.net/stores/005/088/050/rte/hero-materas.jpg");background-size:cover;background-position:center;border-top:1px solid #332820;border-bottom:1px solid #332820;margin-bottom:0}
 @media(max-width:1200px){[data-store="home-image-text-module"]::after,[data-store="banner-services"]::before,[data-store="home-newsletter"]::before{font-size:25px;min-height:52vh;padding:58px 7vw}}
