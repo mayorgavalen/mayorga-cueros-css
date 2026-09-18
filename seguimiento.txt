@@ -48,7 +48,7 @@
     var angosto=window.matchMedia("(max-width:767px)").matches;
     var bar=document.querySelector(".js-topbar");
     var despeje=(bar&&bar.dataset.mgm)?0:hc;
-    sec.style.paddingTop=(despeje+(angosto?14:30))+"px";
+    sec.style.paddingTop=despeje+"px";
     if(angosto){
       slides.forEach(function(s){
         var im=s.querySelector("img");
