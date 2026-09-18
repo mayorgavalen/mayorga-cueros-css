@@ -47,8 +47,7 @@
     var hc=c?c.offsetHeight:116;
     var angosto=window.matchMedia("(max-width:767px)").matches;
     var enc=document.querySelector(".head-main");
-    var despeje=(enc&&getComputedStyle(enc).position==="fixed")?enc.offsetHeight:0;
-    sec.style.paddingTop=despeje+"px";
+    var despeje=enc?enc.offsetHeight:176;
     if(angosto){
       slides.forEach(function(s){
         var im=s.querySelector("img");
