@@ -174,7 +174,7 @@
   }
 
   function todo() {
-    estilos(); encabezado(); whatsapp(); modo();
+    estilos(); encabezado(); whatsapp();
     if (HOME) { categorias(); destacados(); sinCifras(); ayuda(); preguntas(); }
   }
   function arrancar() {
