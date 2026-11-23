@@ -149,7 +149,7 @@
     var bc = document.querySelector('[data-store="home-banner-categories"]'); if (!bc || document.querySelector('.mgn-hero')) return;
     var pt = parseFloat(getComputedStyle(bc).paddingTop) || 0;
     var hx = antes(el('<div class="mgn-hero"><h1>Cuero argentino, cosido en <em>nuestra</em> fábrica.</h1>'
-      + '<div><p>Tres generaciones y más de 50 años en el rubro. No revendemos: fabricamos en Rincón 1264, Buenos Aires.</p>'
+      + '<div><p>Tres generaciones y más de 50 años en el rubro. No revendemos: lo fabricamos nosotros, en Buenos Aires.</p>'
       + '<div class="mgn-ctas"><a class="mgn-b p" href="/productos/">Ver productos</a></div></div></div>'), bc);
     if (pt > 40) { hx.style.paddingTop = (pt + 20) + 'px'; bc.style.setProperty('padding-top', '0px', 'important'); }
   }
@@ -175,7 +175,7 @@
     var ref = document.querySelector('section.mg-pap'); if (!ref || document.querySelector('.mgn-proc')) return;
     antes(el('<section class="mgn-sec mgn-proc"><span class="mgn-eyb">Cómo se hace</span><h2 class="mgn-h">Del cuero a tu mano</h2><div class="mgn-pro">'
       + '<figure><div class="im"><img loading="lazy" src="' + G + 'mgn-proceso-1.jpg" alt="Lonjas de cuero colgadas en la fábrica"></div><figcaption><span class="n">1</span><h3>Elegimos el cuero</h3><p>Cuero vacuno argentino, seleccionado lonja por lonja.</p></figcaption></figure>'
-      + '<figure><div class="im"><img loading="lazy" src="' + G + 'mgn-proceso-2.jpg" alt="Cintos con etiquetas escritas a mano"></div><figcaption><span class="n">2</span><h3>Lo cosemos acá</h3><p>Todo se fabrica en el taller de Rincón 1264. No revendemos.</p></figcaption></figure>'
+      + '<figure><div class="im"><img loading="lazy" src="' + G + 'mgn-proceso-2.jpg" alt="Cintos con etiquetas escritas a mano"></div><figcaption><span class="n">2</span><h3>Lo cosemos acá</h3><p>Todo se fabrica en nuestro taller de Buenos Aires. No revendemos.</p></figcaption></figure>'
       + '<figure><div class="im"><img loading="lazy" src="' + G + 'mgn-proceso-3.jpg" alt="Piezas terminadas en la mesa de trabajo"></div><figcaption><span class="n">3</span><h3>Te llega a casa</h3><p>Envíos a todo el país, con 6 meses de garantía en cada pieza.</p></figcaption></figure>'
       + '</div></section>'), ref);
     ref.style.marginTop = '72px';
