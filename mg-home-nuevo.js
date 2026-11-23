@@ -71,13 +71,6 @@
     + '.mgn-chip:before{content:"";width:7px;height:7px;border-radius:50%;background:#25D366}'
     + '@media(hover:hover) and (pointer:fine){.mgn-chip:hover{border-color:#C89B62;background:#211912}}'
     + '@media(max-width:767px){.mgn-ay{grid-template-columns:1fr;padding:22px}}'
-    /* mayorista: 3 pasos en el hueco */
-    + 'section.mg-may.mgn{display:grid!important;grid-template-columns:1fr 1fr 1fr!important}'
-    + '.mgn-pasos{list-style:none;margin:0;padding:40px 36px;display:flex;flex-direction:column;justify-content:center;gap:22px;counter-reset:p;border-left:1px solid #2E241D;background:#0F0B08}'
-    + '.mgn-pasos li{counter-increment:p;display:grid;grid-template-columns:auto 1fr;gap:2px 14px;color:#EAE0CE}'
-    + '.mgn-pasos li:before{content:counter(p);grid-row:span 2;width:32px;height:32px;border:1px solid #C89B62;border-radius:50%;color:#C89B62;font-family:' + SF + ';font-size:18px;line-height:30px;text-align:center}'
-    + '.mgn-pasos b{font-weight:700}.mgn-pasos span{color:#A89C86;font-size:13.5px}'
-    + '@media(max-width:767px){section.mg-may.mgn{grid-template-columns:1fr!important}.mgn-pasos{border-left:0;border-top:1px solid #2E241D;padding:26px 22px}}'
     /* preguntas */
     + '.mgn-faq{display:grid;grid-template-columns:1fr 1.6fr;gap:40px}'
     + '.mgn-faq details{border-bottom:1px solid #2E241D}.mgn-faq details:first-child{border-top:1px solid #2E241D}'
@@ -157,7 +150,7 @@
     var pt = parseFloat(getComputedStyle(bc).paddingTop) || 0;
     var hx = antes(el('<div class="mgn-hero"><h1>Cuero argentino, cosido en <em>nuestra</em> fábrica.</h1>'
       + '<div><p>Tres generaciones y más de 50 años en el rubro. No revendemos: fabricamos en Rincón 1264, Buenos Aires.</p>'
-      + '<div class="mgn-ctas"><a class="mgn-b p" href="/productos/">Ver productos</a><a class="mgn-b" href="/catalogo-mayorista/">Comprar por mayor</a></div></div></div>'), bc);
+      + '<div class="mgn-ctas"><a class="mgn-b p" href="/productos/">Ver productos</a></div></div></div>'), bc);
     if (pt > 40) { hx.style.paddingTop = (pt + 20) + 'px'; bc.style.setProperty('padding-top', '0px', 'important'); }
   }
   var carruselListo = false;
@@ -193,11 +186,6 @@
       .map(function (c) { return '<a class="mgn-chip" target="_blank" rel="noopener" href="' + wa(c[1]) + '">' + c[0] + '</a>'; }).join('');
     antes(el('<section class="mgn-sec mgn-ayuda" style="padding-bottom:72px"><div class="mgn-ay"><div><span class="mgn-eyb">Atención por WhatsApp</span><h2 class="mgn-h" style="font-size:38px">¿Te ayudamos a elegir?</h2><p>Elegí el tema y te abre WhatsApp con la consulta armada. Responde la familia.</p></div><div class="mgn-chips">' + chips + '</div></div></section>'), ref);
   }
-  function mayorista() {
-    var m = document.querySelector('section.mg-may'); if (!m || m.classList.contains('mgn')) return;
-    m.classList.add('mgn');
-    m.appendChild(el('<ol class="mgn-pasos"><li><b>Pedís el catálogo</b><span>Por WhatsApp, con precios mayoristas y modelos disponibles.</span></li><li><b>Armás tu pedido</b><span>Con atención directa de la fábrica.</span></li><li><b>Te lo despachamos</b><span>A cualquier punto del país.</span></li></ol>'));
-  }
   function preguntas() {
     var ref = document.querySelector('[data-store="home-newsletter"]'); if (!ref || document.querySelector('.mgn-preg')) return;
     var qs = [['¿Cuánto tarda en llegar?', 'En general, entre 3 y 7 días hábiles desde que se acredita el pago. Enviamos a todo el país.'], ['¿Puedo cambiarlo?', 'Sí, podés pedir un cambio dentro de los 15 días de la compra.'], ['¿Tiene garantía?', 'Todos nuestros artículos tienen 6 meses de garantía.'], ['¿Y si llega dañado?', 'Escribinos a mayorgacueros@gmail.com y te enviamos uno nuevo.'], ['¿Hay descuento?', '15% off pagando con transferencia, y envío gratis en compras desde $160.000.']]
@@ -207,7 +195,7 @@
 
   function todo() {
     estilos(); encabezado(); whatsapp(); modo();
-    if (HOME) { hero(); categorias(); destacados(); cifras(); proceso(); ayuda(); mayorista(); preguntas(); }
+    if (HOME) { hero(); categorias(); destacados(); cifras(); proceso(); ayuda(); preguntas(); }
   }
   function arrancar() {
     todo();
