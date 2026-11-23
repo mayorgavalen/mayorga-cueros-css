@@ -145,14 +145,6 @@
   }
 
   /* ---------- solo en el home ---------- */
-  function hero() {
-    var bc = document.querySelector('[data-store="home-banner-categories"]'); if (!bc || document.querySelector('.mgn-hero')) return;
-    var pt = parseFloat(getComputedStyle(bc).paddingTop) || 0;
-    var hx = antes(el('<div class="mgn-hero"><h1>Cuero argentino, cosido en <em>nuestra</em> fábrica.</h1>'
-      + '<div><p>Tres generaciones y más de 50 años en el rubro. No revendemos: lo fabricamos nosotros, en Buenos Aires.</p>'
-      + '<div class="mgn-ctas"><a class="mgn-b p" href="/productos/">Ver productos</a></div></div></div>'), bc);
-    if (pt > 40) { hx.style.paddingTop = (pt + 20) + 'px'; bc.style.setProperty('padding-top', '0px', 'important'); }
-  }
   var carruselListo = false;
   function categorias() {
     if (carruselListo || window.innerWidth > 767) return;
@@ -195,7 +187,7 @@
 
   function todo() {
     estilos(); encabezado(); whatsapp(); modo();
-    if (HOME) { hero(); categorias(); destacados(); cifras(); proceso(); ayuda(); preguntas(); }
+    if (HOME) { categorias(); destacados(); cifras(); proceso(); ayuda(); preguntas(); }
   }
   function arrancar() {
     todo();
