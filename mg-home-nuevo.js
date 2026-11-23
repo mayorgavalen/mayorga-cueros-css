@@ -157,20 +157,8 @@
       var w = s.querySelector('.js-swiper-featured'); if (w) w.parentNode.appendChild(el('<div class="mgn-todos"><a class="mgn-b p" style="width:100%" href="/productos/">Ver todos los productos</a></div>'));
     }
   }
-  function cifras() {
-    var c = document.querySelector('section.mg-con'); if (!c || c.classList.contains('mgn')) return;
-    var w = c.querySelector('.mg-w'); if (!w) return;
-    c.classList.add('mgn');
-    w.innerHTML = '<p><b>$160.000</b>envío gratis desde ese monto</p><p><b>15% off</b>pagando con transferencia</p><p><b>6 meses</b>de garantía en todo</p><p><b>3 a 7 días</b>hábiles de entrega</p>';
-  }
-  function proceso() {
-    var ref = document.querySelector('section.mg-pap'); if (!ref || document.querySelector('.mgn-proc')) return;
-    antes(el('<section class="mgn-sec mgn-proc"><span class="mgn-eyb">Cómo se hace</span><h2 class="mgn-h">Del cuero a tu mano</h2><div class="mgn-pro">'
-      + '<figure><div class="im"><img loading="lazy" src="' + G + 'mgn-proceso-1.jpg" alt="Lonjas de cuero colgadas en la fábrica"></div><figcaption><span class="n">1</span><h3>Elegimos el cuero</h3><p>Cuero vacuno argentino, seleccionado lonja por lonja.</p></figcaption></figure>'
-      + '<figure><div class="im"><img loading="lazy" src="' + G + 'mgn-proceso-2.jpg" alt="Cintos con etiquetas escritas a mano"></div><figcaption><span class="n">2</span><h3>Lo cosemos acá</h3><p>Todo se fabrica en nuestro taller de Buenos Aires. No revendemos.</p></figcaption></figure>'
-      + '<figure><div class="im"><img loading="lazy" src="' + G + 'mgn-proceso-3.jpg" alt="Piezas terminadas en la mesa de trabajo"></div><figcaption><span class="n">3</span><h3>Te llega a casa</h3><p>Envíos a todo el país, con 6 meses de garantía en cada pieza.</p></figcaption></figure>'
-      + '</div></section>'), ref);
-    ref.style.marginTop = '72px';
+  function sinCifras() {
+    var c = document.querySelector('section.mg-con'); if (c) c.style.setProperty('display', 'none', 'important');
   }
   function ayuda() {
     var ref = document.querySelector('section.mg-may'); if (!ref || document.querySelector('.mgn-ayuda')) return;
@@ -187,7 +175,7 @@
 
   function todo() {
     estilos(); encabezado(); whatsapp(); modo();
-    if (HOME) { categorias(); destacados(); cifras(); proceso(); ayuda(); preguntas(); }
+    if (HOME) { categorias(); destacados(); sinCifras(); ayuda(); preguntas(); }
   }
   function arrancar() {
     todo();
