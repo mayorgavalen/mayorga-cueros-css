@@ -165,7 +165,7 @@
     + 'html body footer h4.h3::before{color:' + T.gris + '!important;font-family:' + F + '!important;letter-spacing:0!important;text-transform:none!important;font-size:14px!important}'
     + 'html body footer h4.h3::after{display:none!important;content:none!important}'
     + 'html body footer h4.h3{font-size:18px!important;letter-spacing:-.01em!important;text-transform:none!important}'
-    + '.mz-cat-t{margin:0 0 8px!important;font-size:56px!important;font-weight:600!important;letter-spacing:-.045em!important;line-height:1!important}'
+    + '.mz-cat-t{margin:0 0 8px!important;font-size:48px!important;font-weight:600!important;letter-spacing:-.045em!important;line-height:1!important}'
     + '@media(max-width:767px){.mz-cat-t{font-size:38px!important}}'
     /* listado: orden, etiquetas */
     + 'html body .js-category-controls .row{margin-bottom:12px!important}'
@@ -173,7 +173,11 @@
     + 'html body .js-item-product .label{background:#fff!important;color:' + T.cuero + '!important;border-radius:999px!important;font-size:12px!important;font-weight:500!important;padding:5px 11px!important;text-transform:none!important;letter-spacing:0!important}'
     /* compra rápida de la tienda publicada (.mg-qs) */
     + 'html body .mg-qs *{letter-spacing:0!important;text-transform:none!important}'
-    + 'html body .js-category-controls .mz-orden{display:flex!important;justify-content:flex-end;margin:-56px 0 8px auto!important;max-width:none!important;width:auto!important}'
+    + '@media(min-width:768px){html body section.js-category-controls{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:space-between!important;gap:24px;margin-bottom:28px!important}'
+    + 'html body section.js-category-controls>.row{display:none!important}'
+    + 'html body section.js-category-controls .mz-cat-t{margin:0!important}'
+    + 'html body section.js-category-controls .mz-orden{display:flex!important;align-items:center;margin:0!important;padding:0!important;max-width:none!important;width:auto!important;flex:0 0 auto!important}'
+    + 'html body section.js-category-controls .mz-orden .form-group{margin:0!important}}'
     + '@media(max-width:767px){html body .js-category-controls .mz-orden{display:none!important}}'
     /* categoría y tarjetas del tema */
     + 'html body .js-category-controls::before,html body .js-category-controls::after{display:none!important;content:none!important}'
@@ -318,8 +322,8 @@
     });
     var c = document.querySelector('.js-category-controls'); if (!c || c.__mzc) return; c.__mzc = 1;
     c.style.setProperty('min-height', '0', 'important');
-    c.style.setProperty('padding-top', '28px', 'important');
-    c.style.setProperty('padding-bottom', '8px', 'important');
+    c.style.setProperty('padding-top', '32px', 'important');
+    c.style.setProperty('padding-bottom', '0', 'important');
     var chip = document.querySelector('.mz-chip.on');
     var nombre = chip ? chip.textContent : (document.title || '').split(/[|\-–]/)[0].trim();
     if (nombre && !c.querySelector('.mz-cat-t')) c.insertAdjacentHTML('afterbegin', '<h1 class="mz-cat-t">' + esc(nombre === 'Todo' ? 'Todos los productos' : nombre) + '</h1>');
