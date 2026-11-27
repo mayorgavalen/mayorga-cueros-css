@@ -186,6 +186,8 @@
     + 'html body section.js-category-controls .mz-orden{display:flex!important;align-items:center;margin:0!important;padding:0!important;max-width:none!important;width:auto!important;flex:0 0 auto!important}'
     + 'html body section.js-category-controls .mz-orden .form-group{margin:0!important}}'
     + '@media(max-width:767px){html body .js-category-controls .mz-orden{display:none!important}}'
+    + 'html body .js-category-controls select.js-sort-by-private.form-select{text-align:left!important;text-align-last:left!important}html body .js-category-controls .form-select-icon{right:16px!important;pointer-events:none}'
+    + '@media(max-width:767px){html body section.js-category-controls>.row{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center}html body section.js-category-controls>.row>[class*=col-]{max-width:none!important;flex:none!important;width:auto!important;padding:0!important}html body section.js-category-controls>.row .form-group{margin:0!important}html body .js-category-controls a.btn-default{width:100%}html body .js-category-controls a.btn-default>.row{margin:0!important;width:100%;flex-wrap:nowrap}html body .js-category-controls a.btn-default>.row>.col{padding:0!important}html body section.js-category-controls select.js-sort-by-private.form-select{width:100%!important;min-width:0!important}}'
     + '@media(max-width:767px){html body select.js-sort-by-private.form-select{min-width:0!important;width:100%!important}html body .js-category-controls a.btn-default{border-radius:999px!important;background:#fff!important;border:0!important;height:42px;display:flex!important;align-items:center;padding:0 18px!important}}'
     /* categoría y tarjetas del tema */
     + 'html body .js-category-controls::before,html body .js-category-controls::after{display:none!important;content:none!important}'
@@ -330,7 +332,14 @@
     });
     var c = document.querySelector('.js-category-controls'); if (!c || c.__mzc) return; c.__mzc = 1;
     c.style.setProperty('min-height', '0', 'important');
-    c.style.setProperty('padding-top', '32px', 'important');
+    var angosto = window.matchMedia('(max-width:767px)').matches;
+    c.style.setProperty('padding-top', angosto ? '0' : '8px', 'important');
+    // El código de la tienda publicada le pone a la fila de Filtrar/Ordenar un relleno sin margen lateral
+    var fila = [].filter.call(c.children, function (x) { return /(^|\s)row(\s|$)/.test(x.className); })[0];
+    if (fila && angosto) {
+      fila.style.setProperty('padding', '10px 16px 14px', 'important');
+      [].forEach.call(fila.children, function (col) { col.style.setProperty('margin-left', '0', 'important'); col.style.setProperty('min-width', '0', 'important'); });
+    }
     c.style.setProperty('padding-bottom', '0', 'important');
     var chip = document.querySelector('.mz-chip.on');
     var nombre = chip ? chip.textContent : (document.title || '').split(/[|\-–]/)[0].trim();
