@@ -157,6 +157,10 @@
     + 'html body .mg-qs select,html body .mg-qs input:not(.btn){background:#fff!important;color:' + T.cuero + '!important;border:1px solid ' + T.linea + '!important;border-radius:10px!important}'
     + 'html body .mg-qs .btn-primary,html body .mg-qs input.js-addtocart{background:' + T.cuero + '!important;color:' + T.piedra + '!important;border-color:' + T.cuero + '!important;border-radius:999px!important}'
     + 'html body .mg-qs *{color:inherit}html body .mg-qs label,html body .mg-qs p,html body .mg-qs span{color:' + T.cuero + '}'
+    + 'html body .mg-qs-fondo{background:rgba(43,33,27,.45)!important;border:0!important}'
+    + 'html body .mg-qs .form-label,html body .mg-qs label{color:' + T.gris + '!important;text-transform:none!important;letter-spacing:normal!important;font-family:' + F + '!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart .js-cart-widget-amount{position:static!important;float:none!important;display:inline!important;transform:none!important;top:auto!important;right:auto!important;margin:0 2px 0 0!important;font-size:inherit!important;color:inherit!important;background:transparent!important;padding:0!important;min-width:0!important;height:auto!important;line-height:inherit!important}'
+    + 'html body .js-alert-added-to-cart .notification-img img{width:56px!important;height:56px!important;object-fit:cover!important;background:' + T.tile + '!important;border-radius:8px!important}'
     /* aviso de agregado: la cantidad entre paréntesis como texto normal, no como numerito */
     + 'html body .js-alert-added-to-cart .notification-cart .badge{background:transparent!important;color:' + T.cuero + '!important;font-size:inherit!important;font-weight:inherit!important;padding:0!important;position:static!important;vertical-align:baseline!important;min-width:0!important;height:auto!important}'
     /* contador de fotos de la ficha (1/8): pastilla clara para que se lea sobre cualquier foto */
@@ -301,7 +305,7 @@
      Esta pasada recorre la página y pisa en línea lo que quedó oscuro o claro de más. */
   function rgba(c) { var m = String(c).match(/[\d.]+/g); if (!m) return null; return { r: +m[0], g: +m[1], b: +m[2], a: m[3] == null ? 1 : +m[3] }; }
   function luz(c) { return (0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b) / 255; }
-  var SALTEAR = '.mz,.mz-b3,#ajax-cart,.btn-whatsapp,.mz-logo,.mz-chips,svg,img,picture,video,iframe,script,style,noscript';
+  var SALTEAR = '.mz,.mz-b3,.mg-qs-fondo,#ajax-cart,.btn-whatsapp,.mz-logo,.mz-chips,svg,img,picture,video,iframe,script,style,noscript';
   function repintar(raiz) {
     var imp = function (e, k, v) { e.style.setProperty(k, v, 'important'); };
     [].forEach.call((raiz || document.body).querySelectorAll('*'), function (e) {
@@ -361,6 +365,21 @@
       var w = document.createTreeWalker(a, NodeFilter.SHOW_TEXT, null), n;
       while ((n = w.nextNode())) if (/^\s*\+?549?\d{10,}\s*$/.test(n.nodeValue)) { n.nodeValue = 'WhatsApp'; a.__mzw = 1; }
     });
+  }
+  /* ---------- aviso de agregado: si se agregó desde la compra rápida, Tiendanube deja la miniatura sin foto ---------- */
+  function fotoAviso() {
+    if (document.__mzfa) return; document.__mzfa = 1;
+    document.addEventListener('click', function (ev) {
+      var b = ev.target.closest && ev.target.closest('.js-addtocart'); if (!b) return;
+      var panel = b.closest('.mg-qs') || b.closest('.js-item-product') || b.closest('.mz-card');
+      var im = panel && panel.querySelector('img'); var src = im && (im.currentSrc || im.src); if (!src) return;
+      var n = 0, t = setInterval(function () {
+        [].forEach.call(document.querySelectorAll('.js-alert-added-to-cart img.js-cart-notification-item-img'), function (x) {
+          if (!x.getAttribute('src') || !x.naturalWidth) { x.src = src; x.removeAttribute('srcset'); }
+        });
+        if (++n > 25) clearInterval(t);
+      }, 120);
+    }, true);
   }
   function transfFicha() {
     var cont = document.querySelector('#single-product[data-variants]'); if (!cont) return;
@@ -621,7 +640,7 @@
     ajustar(); window.addEventListener('resize', ajustar); window.addEventListener('load', ajustar);
   }
 
-  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); pieTitulos(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
+  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); pieTitulos(); fotoAviso(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
   function arrancar() {
     todo();
     window.addEventListener('load', todo);
