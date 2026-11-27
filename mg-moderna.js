@@ -161,6 +161,10 @@
     + 'html body .js-alert-added-to-cart .notification-cart .badge{background:transparent!important;color:' + T.cuero + '!important;font-size:inherit!important;font-weight:inherit!important;padding:0!important;position:static!important;vertical-align:baseline!important;min-width:0!important;height:auto!important}'
     /* contador de fotos de la ficha (1/8): pastilla clara para que se lea sobre cualquier foto */
     + 'html body .js-swiper-product-pagination.swiper-pagination-fraction{left:50%!important;right:auto!important;width:auto!important;transform:translateX(-50%);bottom:12px!important;background:rgba(236,233,228,.92)!important;color:' + T.cuero + '!important;font-size:13px!important;font-weight:600!important;padding:4px 12px!important;border-radius:999px!important;line-height:1.3!important;box-shadow:0 2px 8px rgba(43,33,27,.15)}'
+    /* aviso de agregado en compu: vive dentro del encabezado, donde otra regla vuelve transparente todo lo que tiene "col"; acá le gana */
+    + 'html body header.js-head-main.head-main.head-primary .js-alert-added-to-cart .notification-cart.notification-cart{background:#fff!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart .js-cart-widget-amount{display:inline!important;font-size:inherit!important;margin:0 2px!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart .row>span.col-auto{white-space:nowrap!important}'
     /* Comprar en las tarjetas: en celular siempre visible; en compu aparece al pasar el mouse */
     + '@media(hover:hover){html body .mz .mz-card .mz-comprar-b,html body .js-item-product .item-actions{opacity:0;transition:opacity .2s ease}html body .mz .mz-card:hover .mz-comprar-b,html body .mz .mz-card:focus-within .mz-comprar-b,html body .js-item-product:hover .item-actions,html body .js-item-product:focus-within .item-actions{opacity:1}}'
     + '.mz-dot[data-img]{cursor:pointer;position:relative}'
@@ -414,7 +418,7 @@
     // Ventana de compra rápida y otros textos sueltos con precio: solo elementos sin hijos
     [].forEach.call(document.querySelectorAll('.mg-qs,.modal,.js-item-product,#single-product,.js-alert-added-to-cart'), function (raiz) {
       var w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, null), n;
-      while ((n = w.nextNode())) if (/\$[\d.]+,00/.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(/(\$[\d.]+),00/g, '$1');
+      while ((n = w.nextNode())) if (/\$\s?[\d.]+,00/.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(/\$\s?([\d.]+),00/g, '$$$1');
     });
   }
   /* ---------- inicio: el código de la tienda publicada agrega secciones propias; se esconden ---------- */
