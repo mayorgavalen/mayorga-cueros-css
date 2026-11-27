@@ -292,6 +292,16 @@
     [].forEach.call(document.querySelectorAll('.js-price-display,.js-compare-price-display'), function (e) {
       var t = e.textContent; if (/,00\s*$/.test(t)) e.textContent = t.replace(/,00\s*$/, '');
     });
+    // Ventana de compra rápida y otros textos sueltos con precio: solo elementos sin hijos
+    [].forEach.call(document.querySelectorAll('.modal *, .js-item-product *, #single-product *'), function (e) {
+      if (e.children.length || !/\$[\d.]+,00/.test(e.textContent)) return;
+      e.textContent = e.textContent.replace(/(\$[\d.]+),00/g, '$1');
+    });
+  }
+  /* ---------- inicio: el código de la tienda publicada agrega secciones propias; se esconden ---------- */
+  function soloInicioNuevo() {
+    var mz = document.querySelector('.mz'); if (!mz || !mz.parentElement) return;
+    [].forEach.call(mz.parentElement.children, function (c) { if (c !== mz && !c.classList.contains('mz-oculto') && c.tagName !== 'SCRIPT') c.classList.add('mz-oculto'); });
   }
 
 
@@ -461,7 +471,7 @@
     ajustar(); window.addEventListener('resize', ajustar); window.addEventListener('load', ajustar);
   }
 
-  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); repintar(); }
+  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
   function arrancar() {
     todo();
     window.addEventListener('load', todo);
