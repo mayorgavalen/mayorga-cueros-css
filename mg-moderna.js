@@ -149,6 +149,18 @@
     /* el botón no se estira cuando la tarjeta tiene espacio de sobra (ej. texto de transferencia en una línea): queda abajo y del mismo alto */
     + 'html body .mz .mz-card .mz-comprar-b{flex:0 0 auto!important;max-height:42px!important;margin-top:auto!important}html body .mz .mz-card .mz-card-t{margin-bottom:10px}'
     + '@media(max-width:767px){html body .mz .mz-card .mz-comprar-b{max-height:38px!important}}'
+    /* compra rápida (.mg-qs, la arma el seal en oscuro): claro desde el primer instante, sin esperar el repintado */
+    + 'html body .mg-qs{background:' + T.piedra + '!important;color:' + T.cuero + '!important;border-color:' + T.linea + '!important}'
+    + 'html body .mg-qs .mg-qs-foto{background:transparent!important;border-color:' + T.linea + '!important}'
+    + 'html body .mg-qs .mg-qs-x,html body .mg-qs .mg-qs-pre{color:' + T.cuero + '!important;background:transparent!important}'
+    + 'html body .mg-qs .mg-qs-nom,html body .mg-qs .mg-qs-tra{color:' + T.gris + '!important}'
+    + 'html body .mg-qs select,html body .mg-qs input:not(.btn){background:#fff!important;color:' + T.cuero + '!important;border:1px solid ' + T.linea + '!important;border-radius:10px!important}'
+    + 'html body .mg-qs .btn-primary,html body .mg-qs input.js-addtocart{background:' + T.cuero + '!important;color:' + T.piedra + '!important;border-color:' + T.cuero + '!important;border-radius:999px!important}'
+    + 'html body .mg-qs *{color:inherit}html body .mg-qs label,html body .mg-qs p,html body .mg-qs span{color:' + T.cuero + '}'
+    /* aviso de agregado: la cantidad entre paréntesis como texto normal, no como numerito */
+    + 'html body .js-alert-added-to-cart .notification-cart .badge{background:transparent!important;color:' + T.cuero + '!important;font-size:inherit!important;font-weight:inherit!important;padding:0!important;position:static!important;vertical-align:baseline!important;min-width:0!important;height:auto!important}'
+    /* contador de fotos de la ficha (1/8): pastilla clara para que se lea sobre cualquier foto */
+    + 'html body .js-swiper-product-pagination.swiper-pagination-fraction{left:50%!important;right:auto!important;width:auto!important;transform:translateX(-50%);bottom:12px!important;background:rgba(236,233,228,.92)!important;color:' + T.cuero + '!important;font-size:13px!important;font-weight:600!important;padding:4px 12px!important;border-radius:999px!important;line-height:1.3!important;box-shadow:0 2px 8px rgba(43,33,27,.15)}'
     /* Comprar en las tarjetas: en celular siempre visible; en compu aparece al pasar el mouse */
     + '@media(hover:hover){html body .mz .mz-card .mz-comprar-b,html body .js-item-product .item-actions{opacity:0;transition:opacity .2s ease}html body .mz .mz-card:hover .mz-comprar-b,html body .mz .mz-card:focus-within .mz-comprar-b,html body .js-item-product:hover .item-actions,html body .js-item-product:focus-within .item-actions{opacity:1}}'
     + '.mz-dot[data-img]{cursor:pointer;position:relative}'
