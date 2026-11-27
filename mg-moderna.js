@@ -214,6 +214,10 @@
     }
     var h = document.querySelector('.head-main');
     if (h) [].forEach.call(h.querySelectorAll('.utility-name'), function (u) { u.style.setProperty('display', 'none', 'important'); });
+    // Al bajar, el código de la tienda publicada le pone un degradé oscuro (.compress); se pisa en línea
+    var fondo = function () { if (!h) return; h.style.setProperty('background', 'rgba(236,233,228,.96)', 'important'); h.style.setProperty('background-image', 'none', 'important'); };
+    fondo();
+    if (h && !h.__mzf) { h.__mzf = 1; window.addEventListener('scroll', fondo, { passive: true }); new MutationObserver(fondo).observe(h, { attributes: true, attributeFilter: ['class'] }); }
     if (h && !h.querySelector('.mz-chips')) {
       var aqui = location.pathname;
       var chips = CATS.map(function (c) {
