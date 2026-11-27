@@ -367,6 +367,24 @@
     });
   }
   /* ---------- aviso de agregado: si se agregó desde la compra rápida, Tiendanube deja la miniatura sin foto ---------- */
+  /* ---------- ",00" fuera en el acto: un observador sin demora, corre antes de que se pinte la pantalla ---------- */
+  function sinCerosYa() {
+    if (document.__mzsc) return; document.__mzsc = 1;
+    var RE = /\$\s?([\d.]+),00\b/g;
+    var limpiar = function (n) {
+      if (n.nodeType === 3) { if (n.nodeValue.indexOf(',00') >= 0 && RE.test(n.nodeValue)) { RE.lastIndex = 0; n.nodeValue = n.nodeValue.replace(RE, '$$$1'); } RE.lastIndex = 0; return; }
+      if (n.nodeType !== 1 || /^(SCRIPT|STYLE|INPUT|TEXTAREA|SELECT|OPTION)$/.test(n.tagName)) return;
+      var w = document.createTreeWalker(n, NodeFilter.SHOW_TEXT, null), t; while ((t = w.nextNode())) limpiar(t);
+    };
+    new MutationObserver(function (ms) {
+      ms.forEach(function (m) {
+        if (m.type === 'characterData') limpiar(m.target);
+        else [].forEach.call(m.addedNodes, limpiar);
+        if (m.type === 'childList' && m.target && m.target.nodeType === 1 && !/^(SCRIPT|STYLE)$/.test(m.target.tagName) && m.target.childNodes.length < 6) [].forEach.call(m.target.childNodes, function (c) { if (c.nodeType === 3) limpiar(c); });
+      });
+    }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+    limpiar(document.body);
+  }
   function fotoAviso() {
     if (document.__mzfa) return; document.__mzfa = 1;
     document.addEventListener('click', function (ev) {
@@ -651,7 +669,7 @@
     ajustar(); window.addEventListener('resize', ajustar); window.addEventListener('load', ajustar);
   }
 
-  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); pieTitulos(); fotoAviso(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
+  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); pieTitulos(); sinCerosYa(); fotoAviso(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
   function arrancar() {
     todo();
     window.addEventListener('load', todo);
