@@ -130,6 +130,25 @@
     + '.mz .mz-card .mz-comprar-b{align-self:flex-start;margin-top:10px;height:42px!important;min-height:42px;line-height:1!important;padding:0 28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;cursor:pointer;background:' + T.cuero + ';color:' + T.piedra + ';transition:transform .12s cubic-bezier(.23,1,.32,1)}'
     + '.mz-comprar-b:active{transform:scale(.97)}'
     + '@media(max-width:767px){.mz .mz-card .mz-comprar-b{height:38px!important;min-height:38px;padding:0 20px;font-size:14px}}'
+    /* carrito y aviso de agregado: cruz visible, tarjeta blanca legible, botón como el resto del sitio */
+    + 'html body .modal .modal-close-icon,html body .modal .modal-close svg,html body .js-cart-notification-close svg{fill:' + T.cuero + '!important;color:' + T.cuero + '!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart{background:#fff!important;border:1px solid ' + T.linea + '!important;border-radius:14px!important;box-shadow:0 12px 32px rgba(43,33,27,.18)!important;padding:16px!important;color:' + T.cuero + '!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart *:not(.btn):not(.badge):not(svg):not(use){color:' + T.cuero + '!important;background-color:transparent!important;text-transform:none!important;letter-spacing:normal!important}'
+    + 'html body .js-alert-added-to-cart .notification-arrow-up{border-bottom-color:#fff!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart .btn{background:' + T.cuero + '!important;color:' + T.piedra + '!important;border:0!important;border-radius:999px!important;text-transform:none!important;letter-spacing:normal!important;font-weight:600!important;font-size:14px!important;height:42px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0 20px!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart .badge{background:' + T.suela + '!important;color:#fff!important}'
+    + 'html body .js-alert-added-to-cart .notification-cart .notification-img img{border-radius:8px!important}'
+    /* barra de envío gratis (carrito y ficha): fina, color suela, texto chico */
+    + 'html body .js-ship-free-rest .bar-progress{height:6px!important;border-radius:999px!important;background:' + T.linea + '!important;overflow:hidden;position:relative}'
+    + 'html body .js-ship-free-rest .bar-progress-active{height:6px!important;border-radius:999px!important;background:' + T.suela + '!important;background-image:none!important}'
+    + 'html body .js-ship-free-rest .bar-progress-check{display:none!important}'
+    + 'html body .js-ship-free-rest .progress-bar-title-container{margin-bottom:8px!important;align-items:center}'
+    + 'html body .js-ship-free-rest .progress-bar-title,html body .js-ship-free-rest .progress-bar-title *{font-size:13px!important;color:' + T.cuero + '!important;font-weight:500!important}'
+    + 'html body .js-ship-free-rest .progress-bar-icon{fill:' + T.suela + '!important;width:18px!important}'
+    + 'html body .js-ship-free-rest{margin-bottom:24px!important}'
+    /* el botón no se estira cuando la tarjeta tiene espacio de sobra (ej. texto de transferencia en una línea): queda abajo y del mismo alto */
+    + 'html body .mz .mz-card .mz-comprar-b{flex:0 0 auto!important;max-height:42px!important;margin-top:auto!important}html body .mz .mz-card .mz-card-t{margin-bottom:10px}'
+    + '@media(max-width:767px){html body .mz .mz-card .mz-comprar-b{max-height:38px!important}}'
     /* Comprar en las tarjetas: en celular siempre visible; en compu aparece al pasar el mouse */
     + '@media(hover:hover){html body .mz .mz-card .mz-comprar-b,html body .js-item-product .item-actions{opacity:0;transition:opacity .2s ease}html body .mz .mz-card:hover .mz-comprar-b,html body .mz .mz-card:focus-within .mz-comprar-b,html body .js-item-product:hover .item-actions,html body .js-item-product:focus-within .item-actions{opacity:1}}'
     + '.mz-dot[data-img]{cursor:pointer;position:relative}'
@@ -381,7 +400,7 @@
       var t = e.textContent; if (/,00\s*$/.test(t)) e.textContent = t.replace(/,00\s*$/, '');
     });
     // Ventana de compra rápida y otros textos sueltos con precio: solo elementos sin hijos
-    [].forEach.call(document.querySelectorAll('.mg-qs,.modal,.js-item-product,#single-product'), function (raiz) {
+    [].forEach.call(document.querySelectorAll('.mg-qs,.modal,.js-item-product,#single-product,.js-alert-added-to-cart'), function (raiz) {
       var w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, null), n;
       while ((n = w.nextNode())) if (/\$[\d.]+,00/.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(/(\$[\d.]+),00/g, '$1');
     });
