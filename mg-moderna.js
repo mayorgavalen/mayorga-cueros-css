@@ -300,6 +300,20 @@
 
   /* ---------- categoría: el tema deja un hueco alto arriba; se achica y se pone el título ---------- */
   function categoria() {
+    // Barra de categorías que agrega el código de la tienda publicada: repite los botones de arriba.
+    // Se esconden sus links y queda solo el orden (Más vendidos), sin bordes.
+    var selOrden = document.querySelector('select.js-sort-by-private');
+    var barra = selOrden && selOrden.closest('div[style*="border-top"]');
+    if (barra && !barra.__mzb) {
+      barra.__mzb = 1;
+      ['border-top', 'border-bottom'].forEach(function (k) { barra.style.setProperty(k, '0', 'important'); });
+      barra.style.setProperty('background', 'transparent', 'important');
+      barra.style.setProperty('margin-bottom', '16px', 'important');
+      [].forEach.call(barra.querySelectorAll('div'), function (d) {
+        if (d.querySelector('a') && !d.querySelector('select') && d.children.length && [].every.call(d.children, function (x) { return x.tagName === 'A'; })) d.style.setProperty('display', 'none', 'important');
+      });
+      var w = barra.firstElementChild; if (w) w.style.setProperty('justify-content', 'flex-end', 'important');
+    }
     var c = document.querySelector('.js-category-controls'); if (!c || c.__mzc) return; c.__mzc = 1;
     c.style.setProperty('min-height', '0', 'important');
     c.style.setProperty('padding-top', '28px', 'important');
