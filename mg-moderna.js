@@ -23,7 +23,7 @@
     ['Todo', '/productos/'], ['Materas y Yerberos', '/materas-y-yerberos/'], ['Bolsos y viaje', '/bolsos-y-maletines/'],
     ['Cintos', '/cintos/'], ['Billeteras', '/billeteras/'], ['Mayoristas', '/catalogo-mayorista/']
   ];
-  var COLOR = { 'negro': '#1E1915', 'marrón': '#5A3A26', 'marron': '#5A3A26', 'suela': '#A8703F', 'camel': '#B98451', 'pelo atigrado': '#8C6B4C', 'marrón rojizo': '#6E2F1F', 'marrón nubuck': '#6B4A35' };
+  var COLOR = { 'negro': '#1E1915', 'marrón': '#5A3A26', 'marron': '#5A3A26', 'suela': '#A8703F', 'camel': '#B98451', 'pelo atigrado': '#8C6B4C', 'marrón rojizo': '#6E2F1F', 'marrón nubuck': '#6B4A35', 'gamuza negra': '#2B2724', 'gamuza azul': '#2E4482', 'pelo': '#B89A78' };
   var HOME = location.pathname === '/' || /template-home/.test(document.body && document.body.className);
 
   var T = { piedra: '#ECE9E4', tile: '#E2DDD5', cuero: '#2B211B', suela: '#954E1C', gris: '#6B635B', linea: '#D6D0C7' };
