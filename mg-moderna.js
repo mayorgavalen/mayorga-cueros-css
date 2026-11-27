@@ -162,6 +162,7 @@
     + '.mz-b1{min-height:460px}.mz-b1-card b{font-size:26px}'
     + '}'
     /* pie: títulos que el tema arma con pseudo-elementos */
+    + 'html body footer img[src*="logo"]{display:none!important}'
     + 'html body footer h4.h3::before{color:' + T.gris + '!important;font-family:' + F + '!important;letter-spacing:0!important;text-transform:none!important;font-size:14px!important}'
     + 'html body footer h4.h3::after{display:none!important;content:none!important}'
     + 'html body footer h4.h3{font-size:18px!important;letter-spacing:-.01em!important;text-transform:none!important}'
