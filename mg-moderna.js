@@ -188,6 +188,8 @@
     + 'html body section.js-category-controls .mz-orden{display:flex!important;align-items:center;margin:0!important;padding:0!important;max-width:none!important;width:auto!important;flex:0 0 auto!important}'
     + 'html body section.js-category-controls .mz-orden .form-group{margin:0!important}}'
     + '@media(max-width:767px){html body .js-category-controls .mz-orden{display:none!important}}'
+    + 'html body footer h4.mz-pie-t{font-size:12px!important;letter-spacing:.14em!important;text-transform:uppercase!important;font-weight:600!important;color:' + T.gris + '!important;margin:0 0 12px!important;line-height:1.3!important}html body footer h4.mz-pie-t::before,html body footer h4.mz-pie-t::after{content:none!important;display:none!important}'
+    + 'html body .js-product-discount-container>div>span.mr-2{display:none!important}'
     + 'html body .js-item-product .item-actions a.btn-secondary{display:none!important}html body .js-item-product>.js-product-container{display:flex!important;flex-direction:column;height:100%}html body .js-item-product>.js-product-container>.item-actions{margin-top:auto!important}'
     + 'html body .js-category-controls select.js-sort-by-private.form-select{text-align:left!important;text-align-last:left!important}html body .js-category-controls .form-select-icon{right:16px!important;pointer-events:none}'
     + '@media(max-width:767px){html body section.js-category-controls>.row{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center}html body section.js-category-controls>.row>[class*=col-]{max-width:none!important;flex:none!important;width:auto!important;padding:0!important}html body section.js-category-controls>.row .form-group{margin:0!important}html body .js-category-controls a.btn-default{width:100%}html body .js-category-controls a.btn-default>.row{margin:0!important;width:100%;flex-wrap:nowrap}html body .js-category-controls a.btn-default>.row>.col{padding:0!important}html body section.js-category-controls select.js-sort-by-private.form-select{width:100%!important;min-width:0!important}}'
@@ -305,6 +307,22 @@
       if (pr) pr.insertAdjacentHTML('beforeend', '<span class="mz-card-t">' + plata(min.price_with_payment_discount_short) + ' con transferencia</span>');
     });
   }
+  /* ---------- pie: los tres títulos con el mismo estilo y nombres que corresponden; WhatsApp con nombre ---------- */
+  function pieTitulos() {
+    var f = document.querySelector('footer'); if (!f) return;
+    var hs = [].filter.call(f.querySelectorAll('h4'), function (h) { return h.offsetParent !== null || h.getClientRects().length; });
+    var nombres = { 'categorías': 'Navegación', 'contactános': 'Contacto', 'sigamos conectados': 'Redes' };
+    hs.forEach(function (h) {
+      if (h.__mzt) return;
+      var n = nombres[(h.textContent || '').trim().toLowerCase()]; if (!n) return;
+      h.__mzt = 1; h.textContent = n; h.classList.add('mz-pie-t');
+    });
+    [].forEach.call(f.querySelectorAll('a'), function (a) {
+      if (a.__mzw) return;
+      var w = document.createTreeWalker(a, NodeFilter.SHOW_TEXT, null), n;
+      while ((n = w.nextNode())) if (/^\s*\+?549?\d{10,}\s*$/.test(n.nodeValue)) { n.nodeValue = 'WhatsApp'; a.__mzw = 1; }
+    });
+  }
   function transfFicha() {
     var cont = document.querySelector('#single-product[data-variants]'); if (!cont) return;
     var precio = cont.querySelector('.js-price-display'); if (!precio) return;
@@ -338,11 +356,14 @@
     var angosto = window.matchMedia('(max-width:767px)').matches;
     c.style.setProperty('padding-top', angosto ? '0' : '8px', 'important');
     // El código de la tienda publicada le pone a la fila de Filtrar/Ordenar un relleno sin margen lateral
-    var fila = [].filter.call(c.children, function (x) { return /(^|\s)row(\s|$)/.test(x.className); })[0];
-    if (fila && angosto) {
+    // El seal puede correr después y volver a pisarla: se reacomoda también un rato más tarde.
+    function acomodarFila() {
+      var fila = [].filter.call(c.children, function (x) { return /(^|\s)row(\s|$)/.test(x.className); })[0];
+      if (!fila || !window.matchMedia('(max-width:767px)').matches) return;
       fila.style.setProperty('padding', '10px 16px 14px', 'important');
       [].forEach.call(fila.children, function (col) { col.style.setProperty('margin-left', '0', 'important'); col.style.setProperty('min-width', '0', 'important'); });
     }
+    acomodarFila(); [300, 1000, 2500, 5000].forEach(function (t) { setTimeout(acomodarFila, t); });
     c.style.setProperty('padding-bottom', '0', 'important');
     var chip = document.querySelector('.mz-chip.on');
     var nombre = chip ? chip.textContent : (document.title || '').split(/[|\-–]/)[0].trim();
@@ -561,7 +582,7 @@
     ajustar(); window.addEventListener('resize', ajustar); window.addEventListener('load', ajustar);
   }
 
-  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
+  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); pieTitulos(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
   function arrancar() {
     todo();
     window.addEventListener('load', todo);
