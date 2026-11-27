@@ -173,6 +173,8 @@
     + 'html body .js-item-product .label{background:#fff!important;color:' + T.cuero + '!important;border-radius:999px!important;font-size:12px!important;font-weight:500!important;padding:5px 11px!important;text-transform:none!important;letter-spacing:0!important}'
     /* compra rápida de la tienda publicada (.mg-qs) */
     + 'html body .mg-qs *{letter-spacing:0!important;text-transform:none!important}'
+    + 'html body .js-category-controls .mz-orden{display:flex!important;justify-content:flex-end;margin:-56px 0 8px auto!important;max-width:none!important;width:auto!important}'
+    + '@media(max-width:767px){html body .js-category-controls .mz-orden{display:none!important}}'
     /* categoría y tarjetas del tema */
     + 'html body .js-category-controls::before,html body .js-category-controls::after{display:none!important;content:none!important}'
     + 'html body .js-item-product,html body .js-item-product *{border:0!important;box-shadow:none!important}'
@@ -301,19 +303,19 @@
   /* ---------- categoría: el tema deja un hueco alto arriba; se achica y se pone el título ---------- */
   function categoria() {
     // Barra de categorías que agrega el código de la tienda publicada: repite los botones de arriba.
-    // Se esconden sus links y queda solo el orden (Más vendidos), sin bordes.
-    var selOrden = document.querySelector('select.js-sort-by-private');
-    var barra = selOrden && selOrden.closest('div[style*="border-top"]');
-    if (barra && !barra.__mzb) {
+    // Se saca entera; el selector de orden (Más vendidos) vuelve al lado del título.
+    var cc0 = document.querySelector('.js-category-controls');
+    [].forEach.call(document.querySelectorAll('div[style*="border-top"]'), function (barra) {
+      if (barra.__mzb || !cc0 || barra.parentNode !== cc0.parentNode) return;
       barra.__mzb = 1;
-      ['border-top', 'border-bottom'].forEach(function (k) { barra.style.setProperty(k, '0', 'important'); });
-      barra.style.setProperty('background', 'transparent', 'important');
-      barra.style.setProperty('margin-bottom', '16px', 'important');
-      [].forEach.call(barra.querySelectorAll('div'), function (d) {
-        if (d.querySelector('a') && !d.querySelector('select') && d.children.length && [].every.call(d.children, function (x) { return x.tagName === 'A'; })) d.style.setProperty('display', 'none', 'important');
-      });
-      var w = barra.firstElementChild; if (w) w.style.setProperty('justify-content', 'flex-end', 'important');
-    }
+      var sel = barra.querySelector('select.js-sort-by-private');
+      if (sel) {
+        var col = sel.closest('[class*="col"]') || sel.parentNode;
+        col.classList.add('mz-orden');
+        cc0.appendChild(col);
+      }
+      barra.style.setProperty('display', 'none', 'important');
+    });
     var c = document.querySelector('.js-category-controls'); if (!c || c.__mzc) return; c.__mzc = 1;
     c.style.setProperty('min-height', '0', 'important');
     c.style.setProperty('padding-top', '28px', 'important');
