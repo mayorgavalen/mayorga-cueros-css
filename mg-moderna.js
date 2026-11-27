@@ -159,6 +159,8 @@
     + 'html body .js-category-controls .row{margin-bottom:12px!important}'
     + 'html body .js-category-controls select.js-sort-by-private.form-select,html body select.js-sort-by-private.form-select{line-height:42px!important;border-radius:999px!important;height:42px!important;padding:0 40px 0 18px!important;font-size:14px!important;font-weight:500!important;width:auto!important;min-width:180px;background-color:#fff!important}'
     + 'html body .js-item-product .label{background:#fff!important;color:' + T.cuero + '!important;border-radius:999px!important;font-size:12px!important;font-weight:500!important;padding:5px 11px!important;text-transform:none!important;letter-spacing:0!important}'
+    /* compra rápida de la tienda publicada (.mg-qs) */
+    + 'html body .mg-qs *{letter-spacing:0!important;text-transform:none!important}'
     /* categoría y tarjetas del tema */
     + 'html body .js-category-controls::before,html body .js-category-controls::after{display:none!important;content:none!important}'
     + 'html body .js-item-product,html body .js-item-product *{border:0!important;box-shadow:none!important}'
@@ -293,9 +295,9 @@
       var t = e.textContent; if (/,00\s*$/.test(t)) e.textContent = t.replace(/,00\s*$/, '');
     });
     // Ventana de compra rápida y otros textos sueltos con precio: solo elementos sin hijos
-    [].forEach.call(document.querySelectorAll('.modal *, .js-item-product *, #single-product *'), function (e) {
-      if (e.children.length || !/\$[\d.]+,00/.test(e.textContent)) return;
-      e.textContent = e.textContent.replace(/(\$[\d.]+),00/g, '$1');
+    [].forEach.call(document.querySelectorAll('.mg-qs,.modal,.js-item-product,#single-product'), function (raiz) {
+      var w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, null), n;
+      while ((n = w.nextNode())) if (/\$[\d.]+,00/.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(/(\$[\d.]+),00/g, '$1');
     });
   }
   /* ---------- inicio: el código de la tienda publicada agrega secciones propias; se esconden ---------- */
