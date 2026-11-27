@@ -379,6 +379,8 @@
     var imp = function (e, k, v) { e.style.setProperty(k, v, 'important'); };
     [].forEach.call(document.querySelectorAll('td a[href*="wa.me"], td a[href^="mailto:"]'), function (a) {
       if (a.closest('header,footer')) return;
+      if (!a.__mzb) { a.__mzb = /padding/.test(a.getAttribute('style') || '') ? 1 : 2; }
+      if (a.__mzb !== 1) return;
       a.__mz = 1; [].forEach.call(a.querySelectorAll('*'), function (x) { x.__mz = 1; });
       var wa = /wa\.me/.test(a.getAttribute('href') || '');
       imp(a, 'display', 'inline-flex'); imp(a, 'align-items', 'center'); imp(a, 'justify-content', 'center');
