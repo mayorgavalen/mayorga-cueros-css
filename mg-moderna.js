@@ -130,6 +130,9 @@
     + '.mz .mz-card .mz-comprar-b{align-self:flex-start;margin-top:10px;height:42px!important;min-height:42px;line-height:1!important;padding:0 28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;cursor:pointer;background:' + T.cuero + ';color:' + T.piedra + ';transition:transform .12s cubic-bezier(.23,1,.32,1)}'
     + '.mz-comprar-b:active{transform:scale(.97)}'
     + '@media(max-width:767px){.mz .mz-card .mz-comprar-b{height:38px!important;min-height:38px;padding:0 20px;font-size:14px}}'
+    /* Comprar en las tarjetas: en celular no se muestra; en compu aparece al pasar el mouse */
+    + '@media(hover:none){html body .mz .mz-card .mz-comprar-b,html body .js-item-product .item-actions{display:none!important}}'
+    + '@media(hover:hover){html body .mz .mz-card .mz-comprar-b,html body .js-item-product .item-actions{opacity:0;transition:opacity .2s ease}html body .mz .mz-card:hover .mz-comprar-b,html body .mz .mz-card:focus-within .mz-comprar-b,html body .js-item-product:hover .item-actions,html body .js-item-product:focus-within .item-actions{opacity:1}}'
     + '.mz-dot[data-img]{cursor:pointer;position:relative}'
     + '.mz-dot[data-img]::after{content:\"\";position:absolute;inset:-8px}'
     + '.mz-dot.on{box-shadow:0 0 0 2px ' + T.piedra + ',0 0 0 3px ' + T.cuero + '}'
