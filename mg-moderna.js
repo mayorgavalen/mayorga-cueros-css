@@ -45,7 +45,9 @@
     + 'html body{margin-top:0!important}'
     + H + '{position:sticky!important;top:0!important;background:rgba(236,233,228,.96)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:0!important;border-bottom:1px solid ' + T.linea + '!important;box-shadow:none!important}'
     + H + '.container-fluid,' + H + '.row,' + H + '[class*="col"]{background:transparent!important;border:0!important}'
-    + H + 'h1,' + H + '.section-topbar,' + H + '[data-store="navigation"],' + H + '.nav-desktop,' + H + '.utility-name,' + H + '.js-utilities-item.nav-dropdown,' + H + '.js-quick-login-badge{display:none!important}'
+    + H + 'h1,' + H + '[data-store="navigation"],' + H + '.nav-desktop,' + H + '.utility-name,' + H + '.js-utilities-item.nav-dropdown,' + H + '.js-quick-login-badge{display:none!important}'
+    /* barra de avisos (la arma el seal con .mg-avisos): franja oscura arriba del encabezado */
+    + H + 'section.js-topbar{display:block!important;background:#2B211B!important;margin:0!important;padding:0!important;border:0!important}' + H + 'section.js-topbar .container-fluid{padding:6px 12px!important;background:transparent!important}' + H + 'section.js-topbar .row{margin:0!important;justify-content:center!important}' + H + 'section.js-topbar .row>*:not(:has(.mg-avisos)){display:none!important}' + H + 'section.js-topbar .row>*:has(.mg-avisos){flex:1 1 100%!important;max-width:100%!important;padding:0!important}' + H + 'section.js-topbar .js-swiper-adbar{display:none!important}' + H + '.mg-rota span{color:#E8DFD2!important;font-size:11.5px!important;letter-spacing:.1em!important;font-weight:500!important}' + H + '.mg-rota b{color:#D9B183!important;font-weight:700!important}'
     + H + 'svg{fill:' + T.cuero + '!important;color:' + T.cuero + '!important;background:transparent!important}'
     + H + '.utilities-container svg{padding:4px!important}'
     + H + '#logo .logo-img{display:none!important}'
