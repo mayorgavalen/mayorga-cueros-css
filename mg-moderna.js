@@ -115,10 +115,13 @@
     + '.mz-card-foto .mz-pill{top:10px;left:10px;padding:5px 11px;font-size:12px}'
     + '.mz-card-n{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:16px;font-weight:500;letter-spacing:-.01em}'
     + '.mz-card-n span:last-child{display:flex;gap:4px;flex-shrink:0}'
-    + '.mz-comprar{position:absolute;left:10px;right:10px;bottom:10px;height:44px;border-radius:999px;background:' + T.cuero + ';color:' + T.piedra + ';display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .2s ease,transform .2s cubic-bezier(.23,1,.32,1)}'
-    + '.mz-card:hover .mz-comprar,.mz-card:focus-within .mz-comprar{opacity:1;transform:none}'
-    + '.mz-comprar:active{transform:scale(.97)!important}'
-    + '@media(hover:none){.mz-comprar{opacity:1;transform:none;height:38px;font-size:14px;left:8px;right:8px;bottom:8px}}'
+    + '.mz-acciones{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:8px;opacity:0;transform:translateY(8px);transition:opacity .2s ease,transform .2s cubic-bezier(.23,1,.32,1)}'
+    + '.mz-acciones>span{height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;cursor:pointer;transition:transform .12s cubic-bezier(.23,1,.32,1)}'
+    + '.mz-comprar{flex:2;background:' + T.cuero + ';color:' + T.piedra + '}'
+    + '.mz-ver{flex:1;background:#fff;color:' + T.cuero + '}'
+    + '.mz-card:hover .mz-acciones,.mz-card:focus-within .mz-acciones{opacity:1;transform:none}'
+    + '.mz-acciones>span:active{transform:scale(.97)}'
+    + '@media(hover:none){.mz-acciones{opacity:1;transform:none;left:8px;right:8px;bottom:8px;gap:6px}.mz-acciones>span{height:38px;font-size:14px}}'
     + '.mz-dot[data-img]{cursor:pointer;position:relative}'
     + '.mz-dot[data-img]::after{content:\"\";position:absolute;inset:-8px}'
     + '.mz-dot.on{box-shadow:0 0 0 2px ' + T.piedra + ',0 0 0 3px ' + T.cuero + '}'
@@ -427,7 +430,7 @@
       var perso = /billetera/i.test(p.n);
       return '<a class="mz-card" href="' + p.url + '"><div class="mz-card-foto"><img src="' + p.img + '" alt="' + esc(p.n) + '" loading="lazy">'
         + (perso ? '<span class="mz-pill">Con tus iniciales</span>' : '')
-        + '<span class="mz-comprar" role="button" tabindex="0" data-id="' + p.id + '">Comprar</span></div>'
+        + '<span class="mz-acciones"><span class="mz-comprar" role="button" tabindex="0" data-id="' + p.id + '">Comprar</span><span class="mz-ver">Ver</span></span></div>'
         + '<div class="mz-card-n"><span>' + esc(p.n) + '</span><span>' + puntos(p.colores, true, p.vars) + '</span></div>'
         + '<span class="mz-card-p">' + p.p + '</span>'
         + (p.t ? '<span class="mz-card-t">' + p.t + ' con transferencia</span>' : '') + '</a>';
