@@ -179,6 +179,7 @@
     + 'html body section.js-category-controls .mz-orden{display:flex!important;align-items:center;margin:0!important;padding:0!important;max-width:none!important;width:auto!important;flex:0 0 auto!important}'
     + 'html body section.js-category-controls .mz-orden .form-group{margin:0!important}}'
     + '@media(max-width:767px){html body .js-category-controls .mz-orden{display:none!important}}'
+    + '@media(max-width:767px){html body select.js-sort-by-private.form-select{min-width:0!important;width:100%!important}html body .js-category-controls a.btn-default{border-radius:999px!important;background:#fff!important;border:0!important;height:42px;display:flex!important;align-items:center;padding:0 18px!important}}'
     /* categoría y tarjetas del tema */
     + 'html body .js-category-controls::before,html body .js-category-controls::after{display:none!important;content:none!important}'
     + 'html body .js-item-product,html body .js-item-product *{border:0!important;box-shadow:none!important}'
