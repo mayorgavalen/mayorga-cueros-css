@@ -20,7 +20,7 @@
     { id: '366256750', linea: 'Para llevar el trabajo todos los días.' }
   ];
   var CATS = [
-    ['Todo', '/productos/'], ['Materas', '/materas-y-yerberos/'], ['Bolsos y viaje', '/bolsos-y-maletines/'],
+    ['Todo', '/productos/'], ['Materas y Yerberos', '/materas-y-yerberos/'], ['Bolsos y viaje', '/bolsos-y-maletines/'],
     ['Cintos', '/cintos/'], ['Billeteras', '/billeteras/'], ['Mayoristas', '/catalogo-mayorista/']
   ];
   var COLOR = { 'negro': '#1E1915', 'marrón': '#5A3A26', 'marron': '#5A3A26', 'suela': '#A8703F', 'camel': '#B98451', 'pelo atigrado': '#8C6B4C', 'marrón rojizo': '#6E2F1F', 'marrón nubuck': '#6B4A35' };
@@ -122,6 +122,12 @@
     + '.mz-card:hover .mz-acciones,.mz-card:focus-within .mz-acciones{opacity:1;transform:none}'
     + '.mz-acciones>span:active{transform:scale(.97)}'
     + '@media(hover:none){.mz-acciones{opacity:1;transform:none;left:8px;right:8px;bottom:8px;gap:6px}.mz-acciones>span{height:38px;font-size:14px}}'
+    + '.mz-card-foto .mz-f2{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease}'
+    + '@media(hover:hover){.mz-card:hover .mz-f2{opacity:1}}'
+    + '.mz-card.mz-sin2 .mz-f2{display:none}'
+    + '.mz-comprar-b{align-self:flex-start;margin-top:10px;height:42px;padding:0 28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;cursor:pointer;background:' + T.cuero + ';color:' + T.piedra + ';transition:transform .12s cubic-bezier(.23,1,.32,1)}'
+    + '.mz-comprar-b:active{transform:scale(.97)}'
+    + '@media(max-width:767px){.mz-comprar-b{height:38px;padding:0 20px;font-size:14px}}'
     + '.mz-dot[data-img]{cursor:pointer;position:relative}'
     + '.mz-dot[data-img]::after{content:\"\";position:absolute;inset:-8px}'
     + '.mz-dot.on{box-shadow:0 0 0 2px ' + T.piedra + ',0 0 0 3px ' + T.cuero + '}'
@@ -395,6 +401,13 @@
   }
 
 
+  /* segunda foto al pasar el mouse: la del primer color con otra imagen */
+  function segunda(p) {
+    var b = function (u) { return String(u || '').replace(/^https?:/, '').replace(/-\d+-\d+\.\w+$/, ''); }, k = b(p.img), out = '';
+    p.vars.some(function (v) { var u = https(v.image_url); if (u && b(u) !== k) { out = u; return true; } });
+    return out;
+  }
+
   /* ---------- productos que trae la página ---------- */
   function productos() {
     var vistos = {}, lista = [];
@@ -449,13 +462,14 @@
       return '<button type="button" class="mz-pick" data-i="' + i + '" aria-pressed="' + (i ? 'false' : 'true') + '" aria-label="' + esc(h.p.n) + '"><img src="' + h.img + '" alt="" loading="lazy"></button>';
     }).join('');
     var cards = prods.map(function (p) {
-      var perso = /billetera/i.test(p.n);
-      return '<a class="mz-card" href="' + p.url + '"><div class="mz-card-foto"><img src="' + p.img + '" alt="' + esc(p.n) + '" loading="lazy">'
+      var perso = /billetera/i.test(p.n), dos = segunda(p);
+      return '<a class="mz-card" data-id="' + p.id + '" href="' + p.url + '"><div class="mz-card-foto"><img src="' + p.img + '" alt="' + esc(p.n) + '" loading="lazy">'
         + (perso ? '<span class="mz-pill">Con tus iniciales</span>' : '')
-        + '<span class="mz-acciones"><span class="mz-comprar" role="button" tabindex="0" data-id="' + p.id + '">Comprar</span><span class="mz-ver">Ver</span></span></div>'
+        + (dos ? '<img class="mz-f2" src="' + dos + '" alt="" loading="lazy">' : '') + '</div>'
         + '<div class="mz-card-n"><span>' + esc(p.n) + '</span><span>' + puntos(p.colores, true, p.vars) + '</span></div>'
         + '<span class="mz-card-p">' + p.p + '</span>'
-        + (p.t ? '<span class="mz-card-t">' + p.t + ' con transferencia</span>' : '') + '</a>';
+        + (p.t ? '<span class="mz-card-t">' + p.t + ' con transferencia</span>' : '')
+        + '<span class="mz-comprar mz-comprar-b" role="button" tabindex="0" data-id="' + p.id + '">Comprar</span></a>';
     }).join('');
     var waIcono = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l1.4-4A8 8 0 1 1 8.5 19z"/></svg>';
 
@@ -513,6 +527,7 @@
         var caja = d.closest('.mz-card') || d.closest('.mz-hero');
         var im = caja && caja.querySelector('.mz-card-foto img, .mz-hi');
         if (im) { im.src = d.getAttribute('data-img'); im.removeAttribute('srcset'); }
+        if (caja) caja.classList.add('mz-sin2');
         [].forEach.call(d.parentNode.querySelectorAll('.mz-dot'), function (x) { x.classList.toggle('on', x === d); });
         return;
       }
