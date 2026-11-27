@@ -67,6 +67,9 @@
     + H + '.mz-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 12px;max-width:none;margin:0;box-sizing:border-box;border:0!important}'
     + H + '.mz-chips::-webkit-scrollbar{display:none}'
     + H + 'a.mz-chip{flex-shrink:0;height:36px;display:inline-flex!important;align-items:center;padding:0 16px!important;border-radius:999px!important;font-family:' + F + '!important;font-size:14px!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;white-space:nowrap;background:#fff!important;color:' + T.cuero + '!important;text-decoration:none!important}'
+    + H + 'a.mz-chip.mz-chip-may:not(.on){background:transparent!important;border:1.5px solid ' + T.cuero + '!important;font-weight:600!important}'
+    + H + '.mz-sec{display:none}'
+    + '@media(min-width:992px){' + H + '.mz-sec{display:flex;gap:22px;align-items:center;margin-left:auto;padding-left:16px}' + H + 'a.mz-sec-a{font-family:' + F + '!important;font-size:14px!important;font-weight:500!important;color:' + T.gris + '!important;text-decoration:none!important;white-space:nowrap;border-bottom:1px solid transparent;padding:2px 0!important;background:transparent!important}' + H + 'a.mz-sec-a:hover,' + H + 'a.mz-sec-a.on{color:' + T.cuero + '!important;border-bottom-color:' + T.cuero + '!important}}'
     + H + 'a.mz-chip.on{background:' + T.cuero + '!important;color:' + T.piedra + '!important}'
     + '@media(min-width:768px){' + H + '.mz-chips{padding:4px 28px 12px}}'
     + '@media(max-width:767px){'
@@ -292,9 +295,11 @@
       var aqui = location.pathname;
       var chips = CATS.map(function (c) {
         var on = aqui.indexOf(c[1]) === 0 && c[1] !== '/productos/' || (c[1] === '/productos/' && aqui === '/productos/');
-        return '<a class="mz-chip' + (on ? ' on' : '') + '" href="' + c[1] + '"' + (on ? ' aria-current="page"' : '') + '>' + c[0] + '</a>';
+        return '<a class="mz-chip' + (on ? ' on' : '') + (c[1] === '/catalogo-mayorista/' ? ' mz-chip-may' : '') + '" href="' + c[1] + '"' + (on ? ' aria-current="page"' : '') + '>' + c[0] + '</a>';
       }).join('');
-      h.appendChild(el('<nav class="mz-chips" aria-label="Categorías">' + chips + '</nav>'));
+      var EXTRA = [['Nosotros', '/quienes-somos/'], ['Preguntas frecuentes', '/preguntas-frecuentes/'], ['Contacto', '/contacto/']];
+      var links = '<span class="mz-sec">' + EXTRA.map(function (c) { return '<a class="mz-sec-a' + (aqui.indexOf(c[1]) === 0 ? ' on' : '') + '" href="' + c[1] + '">' + c[0] + '</a>'; }).join('') + '</span>';
+      h.appendChild(el('<nav class="mz-chips" aria-label="Categorías">' + chips + links + '</nav>'));
     }
   }
 
@@ -368,6 +373,23 @@
   }
   /* ---------- aviso de agregado: si se agregó desde la compra rápida, Tiendanube deja la miniatura sin foto ---------- */
   /* ---------- ",00" fuera en el acto: un observador sin demora, corre antes de que se pinte la pantalla ---------- */
+  /* ---------- Mayoristas: botones con contraste (en el diseño viejo eran crema sobre oscuro) ---------- */
+  function mayoristaBotones() {
+    if (!document.body.classList.contains('cat-catalogo-mayorista')) return;
+    var imp = function (e, k, v) { e.style.setProperty(k, v, 'important'); };
+    [].forEach.call(document.querySelectorAll('td a[href*="wa.me"], td a[href^="mailto:"]'), function (a) {
+      if (a.closest('header,footer')) return;
+      a.__mz = 1; [].forEach.call(a.querySelectorAll('*'), function (x) { x.__mz = 1; });
+      var wa = /wa\.me/.test(a.getAttribute('href') || '');
+      imp(a, 'display', 'inline-flex'); imp(a, 'align-items', 'center'); imp(a, 'justify-content', 'center');
+      imp(a, 'min-height', '50px'); imp(a, 'padding', '0 30px'); imp(a, 'border-radius', '999px');
+      imp(a, 'font-size', '16px'); imp(a, 'font-weight', '600'); imp(a, 'letter-spacing', '0'); imp(a, 'text-transform', 'none');
+      imp(a, 'font-family', F); imp(a, 'text-decoration', 'none'); imp(a, 'box-sizing', 'border-box');
+      if (wa) { imp(a, 'background', T.cuero); imp(a, 'color', T.piedra); imp(a, 'border', '1px solid ' + T.cuero); imp(a, 'box-shadow', '0 6px 18px rgba(43,33,27,.18)'); }
+      else { imp(a, 'background', 'transparent'); imp(a, 'color', T.cuero); imp(a, 'border', '1.5px solid ' + T.cuero); }
+      if (!a.__mzh) { a.__mzh = 1; a.addEventListener('mouseenter', function () { a.style.setProperty('transform', 'translateY(-1px)'); }); a.addEventListener('mouseleave', function () { a.style.removeProperty('transform'); }); imp(a, 'transition', 'transform .15s ease'); }
+    });
+  }
   function sinCerosYa() {
     if (document.__mzsc) return; document.__mzsc = 1;
     var RE = /\$\s?([\d.]+),00\b/g;
@@ -669,7 +691,7 @@
     ajustar(); window.addEventListener('resize', ajustar); window.addEventListener('load', ajustar);
   }
 
-  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); pieTitulos(); sinCerosYa(); fotoAviso(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
+  function todo() { fuentes(); estilos(); encabezado(); inicio(); pie(); pieTitulos(); mayoristaBotones(); sinCerosYa(); fotoAviso(); categoria(); transfTarjetas(); transfFicha(); sinCeros(); sinRenders(); soloInicioNuevo(); repintar(); }
   function arrancar() {
     todo();
     window.addEventListener('load', todo);
