@@ -372,10 +372,21 @@
     document.addEventListener('click', function (ev) {
       var b = ev.target.closest && ev.target.closest('.js-addtocart'); if (!b) return;
       var panel = b.closest('.mg-qs') || b.closest('.js-item-product') || b.closest('.mz-card');
-      var im = panel && panel.querySelector('img'); var src = im && (im.currentSrc || im.src); if (!src) return;
+      if (!panel) return;
+      var im = panel.querySelector('img'); var src = im && (im.currentSrc || im.src);
+      var txt = function (sel) { var e = panel.querySelector(sel); return e ? e.textContent.trim() : ''; };
+      var nom = txt('.mg-qs-nom') || txt('.js-item-name') || txt('.mz-card-n span');
+      var pre = (txt('.mg-qs-pre') || txt('.js-price-display') || txt('.mz-card-p')).replace(/,00\s*$/, '');
+      var cant = panel.querySelector('input[type="number"],.js-quantity-input'); cant = cant && cant.value ? cant.value : '1';
+      var vari = [].map.call(panel.querySelectorAll('select.js-variation-option,select'), function (x) { return x.value; }).filter(Boolean).join(', ');
       var n = 0, t = setInterval(function () {
-        [].forEach.call(document.querySelectorAll('.js-alert-added-to-cart img.js-cart-notification-item-img'), function (x) {
-          if (!x.getAttribute('src') || !x.naturalWidth) { x.src = src; x.removeAttribute('srcset'); }
+        [].forEach.call(document.querySelectorAll('.js-alert-added-to-cart'), function (a) {
+          var x = a.querySelector('img.js-cart-notification-item-img');
+          if (src && x && (!x.getAttribute('src') || !x.naturalWidth)) { x.src = src; x.removeAttribute('srcset'); }
+          var f = function (sel, v) { var e = a.querySelector(sel); if (e && !e.textContent.trim() && v) e.textContent = v; return e; };
+          f('.js-cart-notification-item-name', nom); f('.js-cart-notification-item-quantity', cant); f('.js-cart-notification-item-price', pre);
+          var vc = a.querySelector('.js-cart-notification-item-variant-container'), ve = a.querySelector('.js-cart-notification-item-variant');
+          if (vari && ve && !ve.textContent.trim()) { ve.textContent = vari; if (vc) vc.style.display = 'inline'; }
         });
         if (++n > 25) clearInterval(t);
       }, 120);
