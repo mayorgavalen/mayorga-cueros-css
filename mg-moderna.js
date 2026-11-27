@@ -191,7 +191,7 @@
     + 'html body section.js-category-controls .mz-orden{display:flex!important;align-items:center;margin:0!important;padding:0!important;max-width:none!important;width:auto!important;flex:0 0 auto!important}'
     + 'html body section.js-category-controls .mz-orden .form-group{margin:0!important}}'
     + '@media(max-width:767px){html body .js-category-controls .mz-orden{display:none!important}}'
-    + 'html body footer h4.mz-pie-t{font-size:12px!important;letter-spacing:.14em!important;text-transform:uppercase!important;font-weight:600!important;color:' + T.gris + '!important;margin:0 0 12px!important;line-height:1.3!important}html body footer h4.mz-pie-t::before,html body footer h4.mz-pie-t::after{content:none!important;display:none!important}'
+    + 'html body footer h4.mz-pie-t{font-size:12px!important;letter-spacing:.14em!important;text-transform:uppercase!important;font-weight:600!important;color:' + T.gris + '!important;margin:0 0 12px!important;line-height:1.3!important}html body footer .row h4.mz-pie-t.mz-pie-t.mz-pie-t::before,html body footer .row h4.mz-pie-t.mz-pie-t.mz-pie-t::after,html body footer .row.element-footer>div h4.mz-pie-t.mz-pie-t::before{content:none!important;display:none!important}'
     + 'html body .js-product-discount-container>div>span.mr-2{display:none!important}'
     + 'html body .js-item-product .item-actions a.btn-secondary{display:none!important}html body .js-item-product>.js-product-container{display:flex!important;flex-direction:column;height:100%}html body .js-item-product>.js-product-container>.item-actions{margin-top:auto!important}'
     + 'html body .js-category-controls select.js-sort-by-private.form-select{text-align:left!important;text-align-last:left!important}html body .js-category-controls .form-select-icon{right:16px!important;pointer-events:none}'
@@ -319,6 +319,8 @@
       if (h.__mzt) return;
       var n = nombres[(h.textContent || '').trim().toLowerCase()]; if (!n) return;
       h.__mzt = 1; h.textContent = n; h.classList.add('mz-pie-t');
+      var st = { 'font-size': '12px', 'letter-spacing': '.14em', 'text-transform': 'uppercase', 'font-weight': '600', 'color': T.gris, 'margin': '0 0 12px', 'line-height': '1.3' };
+      for (var k in st) h.style.setProperty(k, st[k], 'important');
     });
     [].forEach.call(f.querySelectorAll('a'), function (a) {
       if (a.__mzw) return;
