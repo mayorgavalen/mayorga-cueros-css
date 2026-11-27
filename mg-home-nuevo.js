@@ -18,8 +18,8 @@
     + '@media(max-width:767px){.js-search-input{font-size:16px!important}}'
     /* encabezado que se achica */
     + '.head-main .logo-img{transition:height .25s cubic-bezier(.23,1,.32,1),max-height .25s cubic-bezier(.23,1,.32,1)!important}'
-    + '.head-main.mgn-chico .logo-img{max-height:36px!important;height:36px!important;width:auto!important}'
-    + '@media(max-width:767px){.head-main.mgn-chico .logo-img{max-height:32px!important;height:32px!important}.head-main.mgn-chico .pb-3{padding-bottom:8px!important}}'
+    + '.head-main.mgn-chico .logo-img{max-height:48px!important;height:48px!important;width:auto!important}'
+    + '@media(max-width:767px){.head-main.mgn-chico .logo-img{max-height:46px!important;height:46px!important}.head-main.mgn-chico .pb-3{padding-bottom:8px!important}}'
     /* frase de entrada */
     + '.mgn-hero{max-width:1240px;margin:0 auto;padding:44px 15px 28px;display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:end}'
     + '.mgn-hero h1{font-family:' + SF + '!important;font-weight:400!important;font-size:64px!important;line-height:1.02!important;color:#EAE0CE!important;margin:0;text-transform:none!important;letter-spacing:-.01em!important}'
